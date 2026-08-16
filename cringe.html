@@ -1,0 +1,3048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAINFRAME // REALITY.EXE - Quantum Cyber QR Matrix</title>
+    <!-- Google Fonts for authentic retro hacker / pixel typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- QR Code Engines: qrcode-generator for pixel-level canvas halftone/artwork QR & qr-code-styling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+
+    <style>
+        :root {
+            --phosphor-green: #00ff66;
+            --phosphor-bright: #66ff99;
+            --phosphor-dim: #008833;
+            --phosphor-dark: #003311;
+            --phosphor-glow: 0 0 8px rgba(0, 255, 102, 0.75), 0 0 16px rgba(0, 255, 102, 0.4);
+            --phosphor-glow-intense: 0 0 10px #00ff66, 0 0 25px rgba(0, 255, 102, 0.9), 0 0 45px rgba(0, 255, 102, 0.5);
+            --neon-red: #ff003c;
+            --neon-cyan: #00f0ff;
+            --neon-amber: #ffb000;
+            --crt-bg: #010602;
+            --box-bg: rgba(0, 15, 4, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        /* Custom Phosphor Green Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--phosphor-dim);
+            border-radius: 1px;
+            box-shadow: 0 0 6px var(--phosphor-green);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--phosphor-green);
+        }
+
+        body {
+            background-color: #000000;
+            color: var(--phosphor-green);
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            text-shadow: var(--phosphor-glow);
+        }
+
+        /* ================= AUTHENTIC FULL-SCREEN PHOSPHOR CRT MONITOR ================= */
+        .crt-monitor {
+            position: relative;
+            width: 99.2vw;
+            max-width: 1820px;
+            height: 98.2vh;
+            margin: auto;
+            background: radial-gradient(circle at 50% 50%, #031406 0%, #010803 80%, #000301 100%);
+            border: 2px solid var(--phosphor-green);
+            border-radius: 8px;
+            box-shadow: 
+                0 0 25px rgba(0, 255, 102, 0.4),
+                inset 0 0 35px rgba(0, 255, 102, 0.12),
+                inset 0 0 90px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px 14px;
+        }
+
+        /* Fine Scanline Texture */
+        .scanlines {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.3) 50%
+            );
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.18;
+        }
+
+        /* CRT Vignette Bloom */
+        .crt-flicker {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle, transparent 75%, rgba(0,0,0,0.45) 100%);
+            pointer-events: none;
+            z-index: 101;
+            opacity: 0.4;
+        }
+
+        /* Glitch Shake Animation */
+        .screen-glitch {
+            animation: glitchShake 0.22s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes glitchShake {
+            0% { transform: translate(0, 0) scale(1); filter: hue-rotate(0deg); }
+            20% { transform: translate(-3px, 1px) scale(1.001); filter: drop-shadow(3px 0 0 red); }
+            40% { transform: translate(2px, -1px) scale(0.999); filter: drop-shadow(-3px 0 0 cyan); }
+            60% { transform: translate(-2px, 1px); }
+            80% { transform: translate(1px, -1px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* ================= RETRO INSPO TOP HEADER ================= */
+        .inspo-top-bar {
+            border: 2px solid var(--phosphor-green);
+            padding: 6px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+            background: rgba(0, 20, 5, 0.4);
+            box-shadow: inset 0 0 8px rgba(0, 255, 102, 0.15);
+        }
+
+        .battery-meter {
+            display: inline-flex;
+            gap: 2px;
+            padding: 1px 3px;
+            border: 1px solid var(--phosphor-green);
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+        .battery-bar {
+            width: 4px;
+            height: 9px;
+            background: var(--phosphor-green);
+            box-shadow: 0 0 4px var(--phosphor-green);
+        }
+
+        .inspo-hero-banner {
+            border: 1.5px solid var(--phosphor-green);
+            padding: 6px 10px;
+            text-align: center;
+            margin-bottom: 10px;
+            background: rgba(0, 30, 8, 0.25);
+            position: relative;
+        }
+
+        .inspo-hero-banner h1 {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--phosphor-bright);
+            text-shadow: var(--phosphor-glow-intense);
+            margin-bottom: 2px;
+        }
+
+        .inspo-hero-banner h2 {
+            font-family: 'VT323', monospace;
+            font-size: 30px;
+            letter-spacing: 3.5px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--phosphor-green), 0 0 20px var(--phosphor-green);
+            line-height: 1.1;
+        }
+
+        .inspo-sub-log {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            border-top: 1px solid var(--phosphor-dim);
+            margin-top: 4px;
+            padding-top: 3px;
+            color: var(--phosphor-bright);
+        }
+
+        .highlight-solid-tag {
+            background: var(--phosphor-green);
+            color: #000;
+            font-weight: bold;
+            padding: 1px 6px;
+            text-shadow: none;
+        }
+
+        /* ================= 3-COLUMN FULL-HEIGHT EXPANDED GRID ================= */
+        .terminal-grid {
+            display: grid;
+            grid-template-columns: 290px 1fr 290px;
+            gap: 12px;
+            flex: 1;
+            min-height: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 1400px) {
+            .terminal-grid {
+                grid-template-columns: 250px 1fr 250px;
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .terminal-grid {
+                grid-template-columns: 1fr;
+            }
+            .left-sidebar, .right-sidebar {
+                display: none !important;
+            }
+        }
+
+        /* Sidebars & Sensor Boxes */
+        .left-sidebar, .right-sidebar {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            height: 100%;
+        }
+
+        .inspo-box {
+            border: 2px solid var(--phosphor-green);
+            background: var(--box-bg);
+            padding: 10px;
+            position: relative;
+            box-shadow: inset 0 0 12px rgba(0, 255, 102, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .inspo-box-header {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 8.5px;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed var(--phosphor-dim);
+            padding-bottom: 5px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sensor-list {
+            list-style: none;
+            font-size: 11.5px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+        .sensor-item {
+            padding: 3px 6px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .sensor-item.active {
+            background: var(--phosphor-green);
+            color: #000;
+            font-weight: bold;
+            text-shadow: none;
+            box-shadow: 0 0 10px var(--phosphor-green);
+        }
+
+        /* Flashing Memory Loop Detected Box */
+        .memory-loop-banner {
+            border: 2px solid var(--phosphor-green);
+            background: rgba(0, 30, 8, 0.5);
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: pulseGlow 1.2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 4px var(--phosphor-dim); }
+            100% { box-shadow: 0 0 16px var(--phosphor-green); }
+        }
+
+        .memory-loop-title {
+            font-family: 'VT323', monospace;
+            font-size: 22px;
+            letter-spacing: 1.5px;
+            color: #fff;
+            text-shadow: 0 0 8px var(--phosphor-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .thread-stream {
+            font-size: 11px;
+            line-height: 1.35;
+            height: 75px;
+            overflow: hidden;
+            color: var(--phosphor-bright);
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+        }
+
+        /* Warning Triangle Box (from inspo) */
+        .warning-reality-box {
+            border: 2px solid var(--phosphor-green);
+            padding: 10px;
+            background: var(--box-bg);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.08);
+        }
+
+        .hazard-triangle {
+            width: 44px;
+            height: 44px;
+            border: 2px solid var(--phosphor-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: inset 0 0 8px var(--phosphor-green), 0 0 8px var(--phosphor-green);
+            flex-shrink: 0;
+        }
+
+        .warning-text-content {
+            font-size: 11px;
+            line-height: 1.35;
+            flex: 1;
+        }
+        .warning-text-content strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 2px;
+            font-size: 12px;
+        }
+
+        .inspo-ok-btn {
+            border: 1px solid var(--phosphor-green);
+            background: transparent;
+            color: var(--phosphor-green);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            padding: 3px 10px;
+            cursor: pointer;
+            float: right;
+            margin-top: 4px;
+        }
+        .inspo-ok-btn:hover {
+            background: var(--phosphor-green);
+            color: #000;
+            box-shadow: 0 0 8px var(--phosphor-green);
+        }
+
+        /* HTTP Packet Sniffer Box */
+        .http-sniffer-box {
+            border: 2px solid var(--phosphor-green);
+            background: #000;
+            padding: 8px;
+            font-size: 10.5px;
+            line-height: 1.4;
+            color: var(--phosphor-bright);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .http-sniffer-box img {
+            width: 100%;
+            height: 95px;
+            object-fit: cover;
+            filter: contrast(140%) brightness(90%) grayscale(100%) drop-shadow(0 0 6px #00ff66);
+            image-rendering: pixelated;
+            margin-top: 6px;
+            border: 1px solid var(--phosphor-dim);
+        }
+
+        /* Animated Live Waveform ECG Canvas */
+        #ecgCanvas {
+            width: 100%;
+            height: 60px;
+            background: #000;
+            border: 1px solid var(--phosphor-dim);
+            display: block;
+            margin-top: 6px;
+        }
+
+        /* 3D Wireframe Vector Canvas */
+        #wireframeCanvas {
+            width: 100%;
+            height: 115px;
+            background: #000;
+            border: 1px solid var(--phosphor-dim);
+            display: block;
+        }
+
+        /* Live Mini Hologram Preview in Right Sidebar */
+        #miniPreviewContainer {
+            width: 100%;
+            height: 165px;
+            background: #000;
+            border: 2px solid var(--phosphor-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #miniPreviewContainer canvas, #miniPreviewContainer svg, #miniPreviewContainer img {
+            max-width: 155px;
+            max-height: 155px;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 102, 0.6));
+            background: #fff;
+            display: block;
+        }
+
+        /* ================= CENTER WORKSPACE (EXPANDED TO FULL HEIGHT) ================= */
+        .center-workspace {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            gap: 10px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        /* Input Deck Frame */
+        .command-deck {
+            background: var(--box-bg);
+            border: 2px solid var(--phosphor-green);
+            padding: 14px 16px;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+        }
+
+        .deck-title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            border-bottom: 1px solid var(--phosphor-dim);
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+
+        .terminal-input-wrap {
+            display: flex;
+            align-items: center;
+            background: #000;
+            border: 1.5px solid var(--phosphor-green);
+            padding: 8px 12px;
+            box-shadow: inset 0 0 10px rgba(0, 255, 102, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .terminal-input-wrap span.prompt-symbol {
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            margin-right: 10px;
+            text-shadow: var(--phosphor-glow-intense);
+        }
+
+        input#targetUrl {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 16px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 6px #fff;
+        }
+
+        input#targetUrl::placeholder {
+            color: rgba(0, 255, 102, 0.4);
+        }
+
+        /* Preset Chips */
+        .presets-bar {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+            font-size: 11px;
+        }
+
+        .preset-chip {
+            background: rgba(0, 255, 102, 0.08);
+            border: 1px dashed var(--phosphor-dim);
+            color: var(--phosphor-bright);
+            padding: 3px 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .preset-chip:hover {
+            background: var(--phosphor-green);
+            color: #000;
+            border-style: solid;
+            font-weight: bold;
+            box-shadow: 0 0 8px var(--phosphor-green);
+        }
+
+        /* ================= CUSTOMIZATION CONSOLE ================= */
+        .customizer-toggle-btn {
+            width: 100%;
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--phosphor-green);
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            padding: 9px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: inset 0 0 8px rgba(0, 255, 102, 0.2);
+        }
+
+        .customizer-toggle-btn:hover {
+            background: var(--phosphor-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--phosphor-green);
+        }
+
+        .customizer-panel {
+            background: #000b03;
+            border: 1.5px solid var(--phosphor-green);
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.1);
+        }
+
+        .customizer-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--phosphor-dim);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--phosphor-dim);
+            color: var(--phosphor-bright);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11.5px;
+            padding: 7px 10px;
+            cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn.active {
+            background: var(--phosphor-green);
+            color: #000;
+            border-color: var(--phosphor-green);
+            font-weight: bold;
+            box-shadow: 0 0 8px var(--phosphor-green);
+            text-shadow: none;
+        }
+
+        .tab-content {
+            display: none;
+            animation: tabFade 0.2s ease-out;
+            flex: 1;
+        }
+        .tab-content.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        @keyframes tabFade {
+            from { opacity: 0; transform: translateY(2px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Option Controls */
+        .ctrl-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .ctrl-group {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            font-size: 11px;
+        }
+
+        .ctrl-group label {
+            color: var(--phosphor-bright);
+            text-transform: uppercase;
+            font-size: 9.5px;
+            letter-spacing: 0.8px;
+        }
+
+        .theme-preset-btn {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1.5px solid var(--phosphor-green);
+            color: #ffffff;
+            padding: 6px 11px;
+            font-size: 11px;
+            font-family: 'Share Tech Mono', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 4px var(--phosphor-green);
+            box-shadow: inset 0 0 6px rgba(0, 255, 102, 0.15), 0 0 4px rgba(0, 255, 102, 0.2);
+        }
+        .theme-preset-btn:hover {
+            background: var(--phosphor-green);
+            color: #000000;
+            border-color: #ffffff;
+            box-shadow: 0 0 14px var(--phosphor-green);
+            text-shadow: none;
+            font-weight: bold;
+            transform: translateY(-1px);
+        }
+
+        .randomizer-btn {
+            background: linear-gradient(90deg, rgba(0, 255, 102, 0.2) 0%, rgba(0, 240, 255, 0.25) 100%);
+            border: 1.5px solid var(--phosphor-green);
+            color: #fff;
+            padding: 7px 14px;
+            font-size: 11px;
+            font-family: 'Share Tech Mono', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+        }
+        .randomizer-btn:hover {
+            background: var(--phosphor-green);
+            color: #000;
+            box-shadow: 0 0 18px var(--phosphor-green);
+            text-shadow: none;
+            transform: scale(1.02);
+        }
+
+        #radarCanvas {
+            width: 48px;
+            height: 30px;
+            background: #000;
+            border: 1px solid var(--phosphor-green);
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        select.cyber-select {
+            background: #000;
+            border: 1px solid var(--phosphor-green);
+            color: var(--phosphor-green);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            padding: 5px 8px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        input[type="color"].cyber-color-picker {
+            background: transparent;
+            border: 1px solid var(--phosphor-green);
+            width: 32px;
+            height: 26px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        input[type="range"].cyber-slider {
+            accent-color: var(--phosphor-green);
+            cursor: pointer;
+        }
+
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .badge-opt {
+            background: #000;
+            border: 1px solid var(--phosphor-dim);
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--phosphor-bright);
+            transition: all 0.2s;
+        }
+
+        .badge-opt.active {
+            border-color: var(--phosphor-green);
+            background: var(--phosphor-green);
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 0 8px var(--phosphor-green);
+            text-shadow: none;
+        }
+
+        .file-upload-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 11px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+
+        .custom-file-btn {
+            background: transparent;
+            border: 1px dashed var(--phosphor-green);
+            color: #fff;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11px;
+        }
+        .custom-file-btn:hover {
+            background: var(--phosphor-green);
+            color: #000;
+            text-shadow: none;
+        }
+
+        .safety-note {
+            font-size: 10px;
+            color: var(--phosphor-bright);
+            border-left: 2px solid var(--phosphor-green);
+            padding-left: 8px;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        /* Execute Button */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .hack-btn {
+            flex: 1;
+            background: linear-gradient(180deg, #004418 0%, #001f0b 100%);
+            border: 2px solid var(--phosphor-green);
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12.5px;
+            padding: 16px 20px;
+            cursor: pointer;
+            text-shadow: 0 0 8px var(--phosphor-green);
+            box-shadow: 0 0 18px rgba(0, 255, 102, 0.35);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 1px;
+        }
+
+        .hack-btn:hover {
+            background: var(--phosphor-green);
+            color: #000;
+            text-shadow: none;
+            box-shadow: 0 0 30px var(--phosphor-green);
+            transform: translateY(-1px);
+        }
+
+        .hack-btn:active {
+            transform: translateY(1px);
+        }
+
+        .speed-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--phosphor-dim);
+            color: var(--phosphor-bright);
+            font-family: inherit;
+            font-size: 10.5px;
+            padding: 16px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .speed-toggle-btn.active {
+            border-color: var(--phosphor-green);
+            background: rgba(0, 255, 102, 0.15);
+            color: #fff;
+            box-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+        }
+
+        /* ================= HACKING ANIMATION SEQUENCE ================= */
+        #hackingOverlay {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            flex: 1;
+            gap: 12px;
+            background: rgba(1, 12, 4, 0.96);
+            border: 2px solid var(--phosphor-green);
+            padding: 18px;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
+            position: relative;
+        }
+
+        .hack-phase-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            color: var(--neon-red);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hack-phase-title.success {
+            color: var(--phosphor-green);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 24px;
+            background: #000;
+            border: 1.5px solid var(--phosphor-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--phosphor-green) 0px,
+                var(--phosphor-green) 8px,
+                #00441b 8px,
+                #00441b 12px
+            );
+            box-shadow: 0 0 12px var(--phosphor-green);
+            transition: width 0.1s linear;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9.5px;
+            color: #fff;
+            text-shadow: 0 0 6px #000, 0 0 10px #000;
+        }
+
+        /* Stream Box */
+        .terminal-stream-box {
+            height: 180px;
+            background: #000;
+            border: 1px solid var(--phosphor-dim);
+            padding: 10px;
+            overflow-y: hidden;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            line-height: 1.25;
+            color: var(--phosphor-green);
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        .log-line {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .log-line.alert {
+            color: var(--neon-red);
+            font-weight: bold;
+        }
+        .log-line.cyan {
+            color: var(--neon-cyan);
+        }
+
+        /* ================= RESULT SCREEN (QR DISPLAY) ================= */
+        #resultView {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            flex: 1;
+            gap: 14px;
+            background: var(--box-bg);
+            border: 2px solid var(--phosphor-green);
+            padding: 18px;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .access-granted-banner {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 13px;
+            color: #000;
+            background: var(--phosphor-green);
+            padding: 6px 20px;
+            box-shadow: 0 0 18px var(--phosphor-green);
+            letter-spacing: 1.5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .qr-cyber-frame {
+            position: relative;
+            padding: 14px;
+            background: #000;
+            border: 2px solid var(--phosphor-green);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.35);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reticle {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #fff;
+        }
+        .reticle.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; }
+        .reticle.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; }
+        .reticle.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; }
+        .reticle.br { bottom: -3px; right: -3px; border-left: none; border-top: none; }
+
+        .laser-sweep {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--phosphor-green);
+            box-shadow: 0 0 10px var(--phosphor-green), 0 0 20px var(--phosphor-green);
+            animation: laserScan 2s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes laserScan {
+            0% { top: 4%; }
+            100% { top: 96%; }
+        }
+
+        #qrcodeCanvasContainer {
+            background: #000;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 260px;
+            min-height: 260px;
+        }
+
+        #qrcodeCanvasContainer img, #qrcodeCanvasContainer canvas, #qrcodeCanvasContainer svg {
+            display: block;
+            filter: drop-shadow(0 0 6px var(--phosphor-green));
+            background: #fff;
+        }
+
+        .target-payload-meta {
+            text-align: center;
+            font-size: 12px;
+            max-width: 90%;
+            word-break: break-all;
+            color: #fff;
+            border-top: 1px dashed var(--phosphor-dim);
+            padding-top: 8px;
+        }
+
+        .action-btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid var(--phosphor-green);
+            color: #fff;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-transform: uppercase;
+        }
+
+        .action-btn:hover {
+            background: var(--phosphor-green);
+            color: #000;
+            box-shadow: 0 0 10px var(--phosphor-green);
+            font-weight: bold;
+            text-shadow: none;
+        }
+
+        .action-btn.reset-btn {
+            border-color: #fff;
+            color: #fff;
+        }
+        .action-btn.reset-btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 12px #fff;
+        }
+
+        /* ================= BOTTOM TELEMETRY ================= */
+        footer.hud-footer {
+            border-top: 1px solid var(--phosphor-green);
+            margin-top: 6px;
+            padding-top: 4px;
+            font-size: 10px;
+            color: var(--phosphor-bright);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CRT Monitor Shell -->
+    <div class="crt-monitor" id="crtMonitor">
+        <div class="scanlines"></div>
+        <div class="crt-flicker"></div>
+
+        <!-- 1. AUTHENTIC INSPO TOP BAR -->
+        <header class="inspo-top-bar">
+            <div>
+                <span>FILE: <strong>REALITY_PAYLOAD_01</strong></span>
+                <span style="margin-left:12px;">EMOTIONAL_TRANSMISSION: <strong style="color:#fff;">ACTIVE</strong></span>
+            </div>
+            <div>
+                <span>NODE: <strong>MAINFRAME_CORE</strong></span>
+                <span style="margin-left:12px;">BATTERY: <span class="battery-meter"><span class="battery-bar"></span><span class="battery-bar"></span><span class="battery-bar"></span><span class="battery-bar"></span></span></span>
+                <span style="margin-left:12px;">TIME: <strong id="liveClock">00:00:00</strong></span>
+                <span style="margin-left:12px;">SIGNAL: <strong style="color:#fff;">ACTIVE</strong></span>
+                <button class="inspo-ok-btn" id="audioToggleBtn" onclick="toggleAudio()" style="margin-left:12px; margin-top:0;">[SFX: ON]</button>
+            </div>
+        </header>
+
+        <!-- 2. INSPO HERO BANNER -->
+        <section class="inspo-hero-banner">
+            <h1>QUANTUM OPTICAL CIPHER GENERATION & INJECTION MAINFRAME</h1>
+            <h2>SUBJECT: REALITY OVERRIDE DETECTED</h2>
+            <div class="inspo-sub-log">
+                <span>SYS.LOG//04:04:12</span>
+                <span class="highlight-solid-tag">PROCESS ID: 00017</span>
+                <span>EMOTION ENGINE OVERRIDE // 100% OPERATIONAL</span>
+            </div>
+        </section>
+
+        <!-- 3. 3-COLUMN FULL-HEIGHT EXPANDED SENSORY OVERLOAD GRID -->
+        <div class="terminal-grid">
+
+            <!-- LEFT SIDEBAR: Inspo Sensors, Flashing Memory Loop & Waveform -->
+            <aside class="left-sidebar">
+                <div class="inspo-box">
+                    <div class="inspo-box-header">
+                        <span>EMOTIONAL_STATE_FILE</span>
+                        <span class="highlight-solid-tag" style="font-size:7px;">LIVE</span>
+                    </div>
+                    <ul class="sensor-list">
+                        <li class="sensor-item">&gt; PRIMARY CONDITION</li>
+                        <li class="sensor-item active">&gt; HEART RATE [99.8 BPM]</li>
+                        <li class="sensor-item">&gt; MENTAL STATE [LOCKED]</li>
+                        <li class="sensor-item">&gt; QUANTUM MATRIX ENCODE</li>
+                    </ul>
+                    <!-- Live ECG Oscilloscope -->
+                    <canvas id="ecgCanvas" width="270" height="60"></canvas>
+                </div>
+
+                <!-- Flashing Memory Loop Box (Exact from Inspo) -->
+                <div class="inspo-box" style="padding:8px;">
+                    <div class="memory-loop-banner">
+                        <div class="memory-loop-title">
+                            <span>⬡</span>
+                            <span>MEMORY LOOP DETECTED</span>
+                        </div>
+                    </div>
+                    <div style="font-size:10px; display:flex; justify-content:space-between; margin-bottom:4px;">
+                        <span>RUNNING_THREAD:</span>
+                        <span class="highlight-solid-tag" style="font-size:8px;">REALITY</span>
+                    </div>
+                    <div class="thread-stream" id="threadStreamBox">
+                        <div>&gt; 0x7FFF001: BUFFER_OVERFLOW</div>
+                        <div>&gt; 0x7FFF002: INJECTING_PAYLOAD</div>
+                        <div>&gt; 0x7FFF003: MATRIX_UNMASKED</div>
+                    </div>
+                    <div style="text-align:right; margin-top:4px;">
+                        <span class="highlight-solid-tag">PROCESS ID: 00017</span>
+                    </div>
+                </div>
+
+                <!-- 3D Vector Dodecahedron -->
+                <div class="inspo-box">
+                    <div class="inspo-box-header">
+                        <span>3D_QUANTUM_VECTOR</span>
+                    </div>
+                    <canvas id="wireframeCanvas" width="270" height="115"></canvas>
+                    <div style="font-size:10px; margin-top:4px; display:flex; justify-content:space-between;">
+                        <span>SIGNAL STRENGTH: <strong>99.4%</strong></span>
+                        <span style="color:#fff;">&gt;&gt; MATCH FOUND</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- CENTER COLUMN: Primary Interaction Deck & Customization Console -->
+            <main class="center-workspace">
+                <!-- 1. INPUT TERMINAL VIEW -->
+                <div class="command-deck" id="inputDeck">
+                    <div class="deck-title-bar">
+                        <span>[root@mainframe ~]# TARGET_PAYLOAD_URL</span>
+                        <span class="highlight-solid-tag" style="font-size:8.5px;">ENCRYPTION: LEVEL_H</span>
+                    </div>
+
+                    <div class="terminal-input-wrap">
+                        <span class="prompt-symbol">&gt;&gt;</span>
+                        <input type="text" id="targetUrl" placeholder="https://example.com or any target payload" value="https://google.com" autocomplete="off" spellcheck="false" oninput="updateLiveCustomization()">
+                    </div>
+
+                    <!-- Quick Preset Chips -->
+                    <div class="presets-bar">
+                        <span>[PRESETS]:</span>
+                        <span class="preset-chip" onclick="setPreset('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">&gt; Rickroll_Payload</span>
+                        <span class="preset-chip" onclick="setPreset('https://matrix.fandom.com/wiki/The_Matrix')">&gt; Matrix_Mainframe</span>
+                        <span class="preset-chip" onclick="setPreset('https://www.cia.gov/readingroom/document/cia-rdp96-00788r001700210016-5')">&gt; CIA_Classified</span>
+                        <span class="preset-chip" onclick="setPreset('https://antigravity.google')">&gt; Google_Antigravity</span>
+                    </div>
+
+                    <!-- Toggle Customization Console Button -->
+                    <button class="customizer-toggle-btn" id="customizerToggleBtn" onclick="toggleCustomizer()">
+                        <span>[+] QUANTUM CIPHER MODULATION (CUSTOMIZE QR CODE)</span>
+                        <span id="customizerToggleIcon">[-]</span>
+                    </button>
+
+                    <!-- CUSTOMIZATION CONSOLE TABS -->
+                    <div class="customizer-panel" id="customizerPanel">
+                        <div class="customizer-tabs">
+                            <button class="tab-btn active" onclick="switchTab('paletteTab')">[1] PALETTES</button>
+                            <button class="tab-btn" onclick="switchTab('patternsTab')">[2] NANODOTS</button>
+                            <button class="tab-btn" onclick="switchTab('artTab')">[3] BACKGROUND ARTWORK</button>
+                            <button class="tab-btn" onclick="switchTab('badgesTab')">[4] LOGOS</button>
+                            <button class="tab-btn" onclick="switchTab('safetyTab')">[5] SAFETY & EXPORT</button>
+                        </div>
+
+                        <!-- TAB 1: PALETTE & GRADIENTS -->
+                        <div class="tab-content active" id="paletteTab">
+                            <div class="ctrl-row">
+                                <div class="ctrl-group" style="flex:1;">
+                                    <label>Quick Cyber Themes:</label>
+                                    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                                        <button class="theme-preset-btn" onclick="applyTheme('mono')">[STEALTH B&W (DEFAULT)]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('matrix')">[PHOSPHOR GREEN]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('cyberpunk')">[CYBERPUNK NEON]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('redAlert')">[RED ALERT]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('amber')">[AMBER CRT]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('ps2')">[PS2 VRAM]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('synthwave')">[SYNTHWAVE 80s]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('toxic')">[TOXIC ACID]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('iceberg')">[ICEBERG BLUE]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('solar')">[SOLAR FLARE]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('ghost')">[GHOST PROTOCOL]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('midnight')">[MIDNIGHT VAPOR]</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ctrl-row">
+                                <div class="ctrl-group">
+                                    <label>Foreground Color 1:</label>
+                                    <input type="color" id="fgColor1" class="cyber-color-picker" value="#000000" onchange="updateLiveCustomization()">
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Foreground Color 2 (Gradient):</label>
+                                    <input type="color" id="fgColor2" class="cyber-color-picker" value="#000000" onchange="updateLiveCustomization()">
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Background Color:</label>
+                                    <input type="color" id="bgColor" class="cyber-color-picker" value="#ffffff" onchange="updateLiveCustomization()">
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Gradient Mode:</label>
+                                    <select id="gradientType" class="cyber-select" onchange="updateLiveCustomization()">
+                                        <option value="none" selected>Solid (Single Color)</option>
+                                        <option value="linear">Linear Gradient</option>
+                                        <option value="radial">Radial Gradient</option>
+                                    </select>
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Gradient Rotation:</label>
+                                    <input type="range" id="gradientRotation" class="cyber-slider" min="0" max="360" value="45" oninput="updateLiveCustomization()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 2: PATTERNS & CORNER EYES -->
+                        <div class="tab-content" id="patternsTab">
+                            <div class="ctrl-row">
+                                <div class="ctrl-group" style="flex:1;">
+                                    <label>Nanodot Module Pattern:</label>
+                                    <select id="dotsType" class="cyber-select" onchange="updateLiveCustomization()">
+                                        <option value="square" selected>Classic Square Matrix (Default)</option>
+                                        <option value="dots">Nanodot Matrix (Circles)</option>
+                                        <option value="rounded">Smooth Rounded Rects</option>
+                                        <option value="classy">Classy Tech Circuits</option>
+                                        <option value="classy-rounded">Classy Rounded</option>
+                                        <option value="extra-rounded">Extra Fluid Rounded</option>
+                                    </select>
+                                </div>
+                                <div class="ctrl-group" style="flex:1;">
+                                    <label>Corner Outer Eye Reticle:</label>
+                                    <select id="cornersSquareType" class="cyber-select" onchange="updateLiveCustomization()">
+                                        <option value="square" selected>Square Brackets (Default)</option>
+                                        <option value="extra-rounded">Rounded Box</option>
+                                        <option value="dot">Smooth Circle</option>
+                                    </select>
+                                </div>
+                                <div class="ctrl-group" style="flex:1;">
+                                    <label>Corner Inner Eye Core:</label>
+                                    <select id="cornersDotType" class="cyber-select" onchange="updateLiveCustomization()">
+                                        <option value="square" selected>Square Core (Default)</option>
+                                        <option value="dot">Dot / Circle Core</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="ctrl-row">
+                                <div class="ctrl-group">
+                                    <label>Corner Eye Accent Color:</label>
+                                    <input type="color" id="cornersColor" class="cyber-color-picker" value="#000000" onchange="updateLiveCustomization()">
+                                </div>
+                                <div class="safety-note" style="flex:1;">
+                                    [STATUS] All dot and corner patterns adhere to ISO/IEC 18004 QR specifications for 100% camera readability.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TAB 3: BACKGROUND ARTWORK (HALFTONE IMAGE QR ENGINE) -->
+                        <div class="tab-content" id="artTab">
+                            <div class="ctrl-row" style="justify-content: space-between;">
+                                <div class="ctrl-group">
+                                    <label>Artistic Background Image Mode:</label>
+                                    <div style="display:flex; align-items:center; gap:8px;">
+                                        <button class="theme-preset-btn" id="artModeToggleBtn" onclick="toggleArtMode()">[ENABLE BACKGROUND ARTWORK MODE]</button>
+                                        <span id="artModeStatus" style="font-size:11px; color:#fff;">MODE: OFF</span>
+                                    </div>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <button class="randomizer-btn" onclick="randomizeCyberTheme()" title="Randomize cyber palettes, artwork and dot matrices">
+                                        [🎲 RANDOMIZE CYBER PARAMETERS]
+                                    </button>
+                                    <canvas id="radarCanvas" width="48" height="30" title="Quantum Radar Sphere"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="file-upload-wrap">
+                                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                                    <span>UPLOAD BACKGROUND ARTWORK:</span>
+                                    <input type="file" id="bgArtFile" accept="image/*" style="display:none;" onchange="handleBgArtUpload(event)">
+                                    <button class="custom-file-btn" onclick="document.getElementById('bgArtFile').click()">[BROWSE IMAGE FILE...]</button>
+                                    <span id="bgArtFilename" style="color:#fff;"></span>
+                                </div>
+                            </div>
+
+                            <div class="ctrl-row" style="margin-top:10px;">
+                                <div class="ctrl-group">
+                                    <label>Micro-Dot Strength (Scannability):</label>
+                                    <input type="range" id="artDotScale" class="cyber-slider" min="0.60" max="0.88" step="0.02" value="0.72" oninput="updateLiveCustomization()">
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Corner Eye Ring Style:</label>
+                                    <select id="artEyeStyle" class="cyber-select" onchange="updateLiveCustomization()">
+                                        <option value="squares" selected>Classic High-Contrast Squares (Recommended)</option>
+                                        <option value="rounded">Smooth Rounded Rects</option>
+                                        <option value="circles">Circular Rings</option>
+                                    </select>
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Background Image Intensity:</label>
+                                    <input type="range" id="artBgOpacity" class="cyber-slider" min="0.50" max="1.0" step="0.05" value="0.82" oninput="updateLiveCustomization()">
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Auto-Calibrated Eye Core Accent:</label>
+                                    <input type="color" id="artEyeCoreColor" class="cyber-color-picker" value="#00ff66" onchange="updateLiveCustomization()">
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Dark Module Dot Color:</label>
+                                    <input type="color" id="artDotColor" class="cyber-color-picker" value="#000000" onchange="updateLiveCustomization()">
+                                </div>
+                            </div>
+
+                            <div class="safety-note">
+                                [UNBREAKABLE SCANNABILITY SHIELD ACTIVE] All unscannable conditions are automatically prevented: Timing patterns (Row 6 & Col 6) are locked, corner eyes use standard ISO 1:1:3:1:1 bounding geometry, and high-density micro-dots guarantee instant camera detection.
+                            </div>
+                        </div>
+
+                        <!-- TAB 4: INSIGNIA & CENTER LOGOS -->
+                        <div class="tab-content" id="badgesTab">
+                            <div class="ctrl-group">
+                                <label>Preset Cyber Insignia:</label>
+                                <div class="badge-grid">
+                                    <div class="badge-opt active" onclick="selectPresetBadge('none')">[NONE]</div>
+                                    <div class="badge-opt" onclick="selectPresetBadge('skull')">SKULL</div>
+                                    <div class="badge-opt" onclick="selectPresetBadge('biohazard')">BIOHAZARD</div>
+                                    <div class="badge-opt" onclick="selectPresetBadge('radiation')">RADIATION</div>
+                                    <div class="badge-opt" onclick="selectPresetBadge('disk')">PS2_DISK</div>
+                                    <div class="badge-opt" onclick="selectPresetBadge('lightning')">BOLT</div>
+                                    <div class="badge-opt" onclick="selectPresetBadge('alien')">AREA_51</div>
+                                </div>
+                            </div>
+
+                            <div class="file-upload-wrap">
+                                <span>OR UPLOAD CENTER LOGO:</span>
+                                <input type="file" id="customLogoFile" accept="image/*" style="display:none;" onchange="handleCustomLogoUpload(event)">
+                                <button class="custom-file-btn" onclick="document.getElementById('customLogoFile').click()">[BROWSE IMAGE FILE...]</button>
+                                <span id="customLogoFilename" style="color:#fff;"></span>
+                            </div>
+
+                            <div class="ctrl-row" style="margin-top:8px;">
+                                <div class="ctrl-group">
+                                    <label>Logo Size Ratio:</label>
+                                    <input type="range" id="logoSize" class="cyber-slider" min="0.15" max="0.32" step="0.01" value="0.25" oninput="updateLiveCustomization()">
+                                </div>
+                                <div class="ctrl-group">
+                                    <label>Logo Clearance Margin (px):</label>
+                                    <input type="range" id="logoMargin" class="cyber-slider" min="0" max="8" value="3" oninput="updateLiveCustomization()">
+                                </div>
+                            </div>
+                            <div class="safety-note">
+                                [SAFEGUARD ACTIVE] Embedding a center logo automatically locks Error Correction to Level H (30% redundancy) and clears overlapping modules to ensure flawless scanning on any device.
+                            </div>
+                        </div>
+
+                        <!-- TAB 5: ERROR CORRECTION & EXPORT -->
+                        <div class="tab-content" id="safetyTab">
+                            <div class="ctrl-row">
+                                <div class="ctrl-group" style="flex:1;">
+                                    <label>Error Correction Level (ECL):</label>
+                                    <select id="eclLevel" class="cyber-select" onchange="updateLiveCustomization()">
+                                        <option value="L">Level L (7% Data Recovery - Highest Density)</option>
+                                        <option value="M" selected>Level M (15% Data Recovery - Standard Default)</option>
+                                        <option value="Q">Level Q (25% Data Recovery - High Resilience)</option>
+                                        <option value="H">Level H (30% Data Recovery - Maximum Safety)</option>
+                                    </select>
+                                </div>
+                                <div class="ctrl-group" style="flex:1;">
+                                    <label>Quiet Zone Margin:</label>
+                                    <select id="marginSelect" class="cyber-select" onchange="updateLiveCustomization()">
+                                        <option value="0">0 Modules (Zero Padding)</option>
+                                        <option value="1">1 Module</option>
+                                        <option value="2" selected>2 Modules (Standard Default)</option>
+                                        <option value="4">4 Modules (Max Isolation)</option>
+                                    </select>
+                                </div>
+                                <div class="ctrl-group" style="flex:1;">
+                                    <label>Export Resolution:</label>
+                                    <select id="exportResolution" class="cyber-select">
+                                        <option value="512">512 x 512 px (Web)</option>
+                                        <option value="1024" selected>1024 x 1024 px (HD Print)</option>
+                                        <option value="2048">2048 x 2048 px (Ultra HD)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Execute Hack Button -->
+                    <div class="btn-row">
+                        <button class="hack-btn" id="hackBtn" onclick="initiateHackingSequence()">
+                            [EXECUTE] INJECT CYBER-PAYLOAD (GENERATE QR)
+                        </button>
+                        <button class="speed-toggle-btn" id="speedBtn" onclick="toggleSpeed()" title="Switch between Authentic 7s hacker suspense or 2s fast bypass">
+                            SPEED: AUTHENTIC (7s)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. PROLONGED HACKING TIMELINE (ANIMATION OVERLAY) -->
+                <div id="hackingOverlay">
+                    <div class="hack-phase-title" id="phaseTitle">
+                        <span id="phaseText">[1/6] INFILTRATING ENCRYPTED GATEWAY...</span>
+                        <span class="highlight-solid-tag" style="background:var(--neon-red); color:#fff;">BREACH</span>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar-fill" id="progressBarFill"></div>
+                        <div class="progress-text" id="progressPct">0%</div>
+                    </div>
+
+                    <div class="terminal-stream-box" id="streamLogBox">
+                        <div class="log-line">&gt; SYSTEM INITIALIZED. WAITING FOR TRIGGER...</div>
+                    </div>
+                </div>
+
+                <!-- 3. FINAL RESULT VIEW (QR CODE DISPLAY) -->
+                <div id="resultView">
+                    <div class="access-granted-banner">
+                        [ ACCESS GRANTED // OVERRIDE COMPLETE ]
+                    </div>
+
+                    <div class="qr-cyber-frame">
+                        <div class="reticle tl"></div>
+                        <div class="reticle tr"></div>
+                        <div class="reticle bl"></div>
+                        <div class="reticle br"></div>
+                        <div class="laser-sweep"></div>
+                        <div id="qrcodeCanvasContainer"></div>
+                    </div>
+
+                    <div class="target-payload-meta" id="targetPayloadMeta">
+                        TARGET_ENCODED: https://google.com
+                    </div>
+
+                    <div class="action-btn-row">
+                        <button class="action-btn" onclick="downloadQRCode('png')">
+                            DOWNLOAD PAYLOAD (.PNG)
+                        </button>
+                        <button class="action-btn" onclick="downloadQRCode('svg')">
+                            EXPORT VECTOR (.SVG)
+                        </button>
+                        <button class="action-btn" onclick="copyLink()">
+                            COPY MATRIX LINK
+                        </button>
+                        <button class="action-btn reset-btn" onclick="resetToTerminal()">
+                            HACK ANOTHER TARGET
+                        </button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- RIGHT SIDEBAR: Warning Hazard Box, System Note, Hologram & Packet Sniffer -->
+            <aside class="right-sidebar">
+                <!-- Inspo Warning Hazard Box -->
+                <div class="warning-reality-box">
+                    <div class="hazard-triangle">!</div>
+                    <div class="warning-text-content">
+                        <strong>REALITY.EXE // WARNING</strong>
+                        <div>Corrupted file detected.</div>
+                        <div style="color:#fff; font-weight:bold;">SYMPTOM: Quantum Overload</div>
+                        <button class="inspo-ok-btn" onclick="playTerminalKeyClick()">OK</button>
+                    </div>
+                </div>
+
+                <!-- System Note from Inspo -->
+                <div class="inspo-box" style="padding:8px;">
+                    <div style="font-size:9px; display:flex; justify-content:space-between; margin-bottom:4px;">
+                        <span>SYSTEM NOTE:</span>
+                        <span>ENTRY 0001</span>
+                    </div>
+                    <div style="font-size:11px; color:#fff; line-height:1.35;">
+                        This program was engineered for total optical matrix payload synthesis.
+                    </div>
+                </div>
+
+                <!-- Live Mini Hologram Preview -->
+                <div class="inspo-box">
+                    <div class="inspo-box-header">
+                        <span>LIVE_HOLOGRAM_PREVIEW</span>
+                        <span class="highlight-solid-tag" style="font-size:7.5px;">LIVE</span>
+                    </div>
+                    <div id="miniPreviewContainer"></div>
+                    <div style="font-size:10px; margin-top:4px; display:flex; justify-content:space-between;">
+                        <span>SCANNABILITY: 100%</span>
+                        <span style="color:#fff;">CIPHER: 2D_QR</span>
+                    </div>
+                </div>
+
+                <!-- Inspo HTTP Packet Sniffer -->
+                <div class="http-sniffer-box">
+                    <div>GET /matrix_payload HTTP/1.1</div>
+                    <div>Host: mainframe.server</div>
+                    <div>User-Agent: phantom.hacker</div>
+                    <div style="color:#fff; font-weight:bold; margin-top:2px;">RESPONSE: 200 OK (Connection Established)</div>
+                    <img src="inspo/download (2).jfif" alt="Hacker Surveillance" onerror="this.src='inspo/download.jfif'">
+                </div>
+            </aside>
+
+        </div>
+
+        <!-- Bottom HUD Footer -->
+        <footer class="hud-footer">
+            <div>PS2_VRAM: 64MB // BIOS_REV: 2.30 // PROTOCOL: TCP/IP_OVERRIDE</div>
+            <div>[STATUS: ALL FIREWALLS COMPROMISED // SCANNABLE 100%]</div>
+            <div>BUILD: 2004.11.17 // HOLLYWOOD_CUSTOM_EDITION</div>
+        </footer>
+    </div>
+
+    <!-- ================= JAVASCRIPT ENGINE ================= -->
+    <script>
+        /* ----------------------------------------------------
+           1. SERIOUS HOLLYWOOD TERMINAL SOUND ENGINE
+           ---------------------------------------------------- */
+        let audioCtx = null;
+        let soundEnabled = true;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function toggleAudio() {
+            soundEnabled = !soundEnabled;
+            const btn = document.getElementById('audioToggleBtn');
+            btn.innerText = soundEnabled ? '[SFX: ON]' : '[SFX: OFF]';
+            if (soundEnabled) {
+                playTerminalKeyClick();
+            }
+        }
+
+        function playTerminalKeyClick() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                const pitch = 1800 + (Math.random() * 400 - 200);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(pitch, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.012);
+
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.012);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.015);
+            } catch (e) {}
+        }
+
+        function playHackerRadarPulse() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(1100, now);
+                osc.frequency.exponentialRampToValueAtTime(320, now + 0.18);
+
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 2400;
+
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+
+                osc.start(now);
+                osc.stop(now + 0.2);
+            } catch(e) {}
+        }
+
+        function playGlitchNoise() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+                const bufferSize = ctx.sampleRate * 0.08;
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                const noise = ctx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.value = 1600;
+                filter.Q.value = 3;
+
+                const gain = ctx.createGain();
+                gain.gain.setValueAtTime(0.09, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(ctx.destination);
+
+                noise.start(now);
+            } catch(e) {}
+        }
+
+        function playAccessGrantedTone() {
+            if (!soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+
+                const freqs = [880, 1320, 1760];
+                freqs.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    const startTime = now + (idx * 0.08);
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, startTime);
+
+                    gain.gain.setValueAtTime(0.08, startTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.22);
+
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+
+                    osc.start(startTime);
+                    osc.stop(startTime + 0.25);
+                });
+            } catch(e) {}
+        }
+
+
+        /* ----------------------------------------------------
+           2. SENSORY OVERLOAD: LIVE CLOCK & ECG OSCILLOSCOPE
+           ---------------------------------------------------- */
+        function updateLiveClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('liveClock').innerText = `${h}:${m}:${s}`;
+        }
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
+
+        // Live ECG Oscilloscope
+        const ecgCanvas = document.getElementById('ecgCanvas');
+        const ectx = ecgCanvas.getContext('2d');
+        let ecgX = 0;
+        let ecgPoints = new Array(270).fill(30);
+
+        function renderECG() {
+            ectx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ectx.fillRect(0, 0, ecgCanvas.width, ecgCanvas.height);
+
+            for (let i = 0; i < ecgPoints.length - 1; i++) {
+                ecgPoints[i] = ecgPoints[i + 1];
+            }
+
+            let nextVal = 30 + (Math.random() * 6 - 3);
+            if (ecgX % 45 === 0) {
+                nextVal = 6;
+            } else if (ecgX % 45 === 2) {
+                nextVal = 52;
+            } else if (ecgX % 45 === 4) {
+                nextVal = 20;
+            }
+            ecgPoints[ecgPoints.length - 1] = nextVal;
+            ecgX++;
+
+            ectx.strokeStyle = '#00ff66';
+            ectx.shadowColor = '#00ff66';
+            ectx.shadowBlur = 6;
+            ectx.lineWidth = 1.5;
+            ectx.beginPath();
+            for (let i = 0; i < ecgPoints.length; i++) {
+                if (i === 0) ectx.moveTo(i, ecgPoints[i]);
+                else ectx.lineTo(i, ecgPoints[i]);
+            }
+            ectx.stroke();
+
+            requestAnimationFrame(renderECG);
+        }
+        renderECG();
+
+        // Flashing Memory Loop Thread Stream
+        const THREAD_SNIPPETS = [
+            "0x7FFF001: BUFFER_OVERFLOW",
+            "0x7FFF002: INJECTING_PAYLOAD",
+            "0x7FFF003: MATRIX_UNMASKED",
+            "0x7FFF004: RSA_KEY_CRACKED",
+            "0x7FFF005: PS2_CORE_OVERRIDE",
+            "0x7FFF006: SATELLITE_HOP_ACK",
+            "0x7FFF007: ZERO_DAY_DEPLOYED"
+        ];
+        setInterval(() => {
+            const box = document.getElementById('threadStreamBox');
+            if (box) {
+                const line = document.createElement('div');
+                line.innerText = `> ${THREAD_SNIPPETS[Math.floor(Math.random() * THREAD_SNIPPETS.length)]}`;
+                box.appendChild(line);
+                if (box.children.length > 6) {
+                    box.removeChild(box.firstChild);
+                }
+            }
+        }, 700);
+
+
+        /* ----------------------------------------------------
+           3. 3D WIREFRAME CANVASES (Dodecahedron & Radar Sphere)
+           ---------------------------------------------------- */
+        const canvas = document.getElementById('wireframeCanvas');
+        const ctx = canvas.getContext('2d');
+        let angleX = 0, angleY = 0, angleZ = 0;
+
+        const vertices = [
+            [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+            [-1, -1, 1],  [1, -1, 1],  [1, 1, 1],  [-1, 1, 1]
+        ];
+        const edges = [
+            [0,1],[1,2],[2,3],[3,0],
+            [4,5],[5,6],[6,7],[7,4],
+            [0,4],[1,5],[2,6],[3,7]
+        ];
+
+        function renderWireframe() {
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = 'rgba(0, 255, 102, 0.12)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < canvas.width; x += 20) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += 20) {
+                ctx.beginPath();
+                ctx.moveTo(0, y); ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+
+            const projected = [];
+            const scale = 30;
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+
+            for (let i = 0; i < vertices.length; i++) {
+                let [x, y, z] = vertices[i];
+
+                let radX = angleX;
+                let y1 = y * Math.cos(radX) - z * Math.sin(radX);
+                let z1 = y * Math.sin(radX) + z * Math.cos(radX);
+
+                let radY = angleY;
+                let x2 = x * Math.cos(radY) + z1 * Math.sin(radY);
+                let z2 = -x * Math.sin(radY) + z1 * Math.cos(radY);
+
+                let radZ = angleZ;
+                let x3 = x2 * Math.cos(radZ) - y1 * Math.sin(radZ);
+                let y3 = x2 * Math.sin(radZ) + y1 * Math.cos(radZ);
+
+                let distance = 3.5;
+                let fov = 1 / (distance - z2);
+                let px = x3 * fov * scale * 2.8 + cx;
+                let py = y3 * fov * scale * 2.8 + cy;
+
+                projected.push([px, py]);
+            }
+
+            ctx.strokeStyle = '#00ff66';
+            ctx.shadowColor = '#00ff66';
+            ctx.shadowBlur = 5;
+            ctx.lineWidth = 1.3;
+
+            for (let i = 0; i < edges.length; i++) {
+                const [p1, p2] = edges[i];
+                ctx.beginPath();
+                ctx.moveTo(projected[p1][0], projected[p1][1]);
+                ctx.lineTo(projected[p2][0], projected[p2][1]);
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = '#fff';
+            for (let i = 0; i < projected.length; i++) {
+                ctx.fillRect(projected[i][0] - 1.5, projected[i][1] - 1.5, 3, 3);
+            }
+
+            angleX += 0.015;
+            angleY += 0.02;
+            angleZ += 0.008;
+
+            requestAnimationFrame(renderWireframe);
+        }
+        renderWireframe();
+
+        // 3D Holographic Gyro Radar Sphere Animation
+        const radarCanvas = document.getElementById('radarCanvas');
+        const rctx = radarCanvas.getContext('2d');
+        let radarAngle = 0;
+
+        function renderRadarSphere() {
+            rctx.fillStyle = '#000000';
+            rctx.fillRect(0, 0, radarCanvas.width, radarCanvas.height);
+
+            const rcx = radarCanvas.width / 2;
+            const rcy = radarCanvas.height / 2;
+            const rad = 11;
+
+            rctx.strokeStyle = '#00f0ff';
+            rctx.lineWidth = 1;
+            rctx.beginPath();
+            rctx.ellipse(rcx, rcy, rad, rad * Math.abs(Math.sin(radarAngle * 0.7)), radarAngle, 0, Math.PI * 2);
+            rctx.stroke();
+
+            rctx.strokeStyle = '#00ff66';
+            rctx.beginPath();
+            rctx.ellipse(rcx, rcy, rad * 0.75, rad * 0.75 * Math.abs(Math.cos(radarAngle * 0.9)), -radarAngle * 1.2, 0, Math.PI * 2);
+            rctx.stroke();
+
+            rctx.fillStyle = '#ff003c';
+            rctx.beginPath();
+            rctx.arc(rcx, rcy, 2, 0, Math.PI * 2);
+            rctx.fill();
+
+            radarAngle += 0.04;
+            requestAnimationFrame(renderRadarSphere);
+        }
+        renderRadarSphere();
+
+
+        /* ----------------------------------------------------
+           4. SVG BADGE PRESETS
+           ---------------------------------------------------- */
+        const BADGE_SVGS = {
+            none: '',
+            skull: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2300ff66'><path d='M50 10 C30 10 16 26 16 46 C16 60 24 72 34 78 L34 90 L66 90 L66 78 C76 72 84 60 84 46 C84 26 70 10 50 10 Z M34 46 A 8 8 0 0 1 34 30 A 8 8 0 0 1 34 46 Z M66 46 A 8 8 0 0 1 66 30 A 8 8 0 0 1 66 46 Z M42 84 L42 74 L46 74 L46 84 Z M54 84 L54 74 L58 74 L58 84 Z'/></svg>",
+            biohazard: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2300ff66'><circle cx='50' cy='50' r='14'/><path d='M50 20 A 24 24 0 0 0 30 32 A 26 26 0 0 1 70 32 A 24 24 0 0 0 50 20 Z M22 55 A 24 24 0 0 0 34 74 A 26 26 0 0 1 40 40 A 24 24 0 0 0 22 55 Z M78 55 A 24 24 0 0 0 60 40 A 26 26 0 0 1 66 74 A 24 24 0 0 0 78 55 Z'/></svg>",
+            radiation: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23ffb000'><circle cx='50' cy='50' r='12'/><path d='M50 12 L36 36 A 28 28 0 0 1 64 36 Z M18 68 L42 56 A 28 28 0 0 1 28 32 Z M82 68 L72 32 A 28 28 0 0 1 58 56 Z'/></svg>",
+            disk: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2300f0ff'><path d='M15 15 L75 15 L85 25 L85 85 L15 85 Z M30 20 L70 20 L70 42 L30 42 Z M25 55 L75 55 L75 80 L25 80 Z'/></svg>",
+            lightning: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23ffff00'><polygon points='58,8 20,54 48,54 38,92 82,42 52,42'/></svg>",
+            alien: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2300ff66'><path d='M50 10 C22 10 14 36 24 66 C32 88 50 94 50 94 C50 94 68 88 76 66 C86 36 78 10 50 10 Z M34 44 C26 44 26 56 36 60 C42 62 42 50 34 44 Z M66 44 C58 50 58 62 64 60 C74 56 74 44 66 44 Z'/></svg>"
+        };
+
+        let selectedBadge = 'none';
+        let customUploadedLogo = null;
+
+        // Background Artwork Engine State
+        let artModeEnabled = false;
+        let loadedBgImage = null;
+
+        /* ----------------------------------------------------
+           5. CONTRAST-HARDENED DOMINANT COLOR EXTRACTOR & SAFEGUARD
+           ---------------------------------------------------- */
+        function getLuminance(r, g, b) {
+            return (0.2126 * r + 0.7152 * g + 0.0722 * b);
+        }
+
+        // Guarantees any user or extracted color is strictly dark enough for 100% QR scannability
+        function getSafeContrastColor(hexColor, maxLuminance = 50) {
+            if (!hexColor || !hexColor.startsWith('#') || hexColor.length < 7) return '#000000';
+            let r = parseInt(hexColor.slice(1, 3), 16) || 0;
+            let g = parseInt(hexColor.slice(3, 5), 16) || 0;
+            let b = parseInt(hexColor.slice(5, 7), 16) || 0;
+
+            const lum = getLuminance(r, g, b);
+            if (lum > maxLuminance) {
+                const scale = maxLuminance / (lum + 0.001);
+                r = Math.min(Math.max(Math.round(r * scale), 0), 255);
+                g = Math.min(Math.max(Math.round(g * scale), 0), 255);
+                b = Math.min(Math.max(Math.round(b * scale), 0), 255);
+                return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            }
+            return hexColor;
+        }
+
+        function extractDominantColor(img) {
+            try {
+                const c = document.createElement('canvas');
+                const ctx = c.getContext('2d');
+                c.width = 64;
+                c.height = 64;
+                ctx.drawImage(img, 0, 0, 64, 64);
+                const data = ctx.getImageData(0, 0, 64, 64).data;
+
+                const colorCounts = {};
+                let maxCount = 0;
+                let dominantHex = '#005522';
+
+                for (let i = 0; i < data.length; i += 4) {
+                    const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+                    if (a < 80) continue;
+
+                    const max = Math.max(r, g, b);
+                    const min = Math.min(r, g, b);
+                    const saturation = max === 0 ? 0 : (max - min) / max;
+                    const luminance = getLuminance(r, g, b);
+
+                    // Ignore pure whites and extreme neutral grays
+                    if (luminance > 245 || luminance < 10 || saturation < 0.12) {
+                        continue;
+                    }
+
+                    const qr = Math.round(r / 16) * 16;
+                    const qg = Math.round(g / 16) * 16;
+                    const qb = Math.round(b / 16) * 16;
+                    const key = `${qr},${qg},${qb}`;
+
+                    colorCounts[key] = (colorCounts[key] || 0) + 1;
+                    if (colorCounts[key] > maxCount) {
+                        maxCount = colorCounts[key];
+                        dominantHex = '#' + ((1 << 24) + (Math.min(qr,255) << 16) + (Math.min(qg,255) << 8) + Math.min(qb,255)).toString(16).slice(1);
+                    }
+                }
+                return getSafeContrastColor(dominantHex, 55);
+            } catch (e) {
+                return '#005522';
+            }
+        }
+
+
+        // UTF-8 Unicode Support for QR payload encoder
+        if (typeof qrcode !== 'undefined' && qrcode.stringToBytesFuncs && qrcode.stringToBytesFuncs['UTF-8']) {
+            qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+        }
+
+        // Logo Image Cache
+        let cachedLogoSrc = null;
+        let cachedLogoImg = null;
+
+        function getLoadedLogoImage(src, onReady) {
+            if (!src) return null;
+            if (cachedLogoSrc === src && cachedLogoImg && cachedLogoImg.complete && cachedLogoImg.naturalWidth > 0) {
+                return cachedLogoImg;
+            }
+            cachedLogoSrc = src;
+            cachedLogoImg = new Image();
+            cachedLogoImg.crossOrigin = 'anonymous';
+            cachedLogoImg.onload = () => {
+                if (onReady) onReady();
+            };
+            cachedLogoImg.src = src;
+            return cachedLogoImg.complete && cachedLogoImg.naturalWidth > 0 ? cachedLogoImg : null;
+        }
+
+        // ISO/IEC 18004 Alignment Pattern Coordinate Locations
+        const ALIGNMENT_COORDS = [
+            [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34],
+            [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50],
+            [6, 30, 54], [6, 32, 58], [6, 34, 62], [6, 26, 46, 66],
+            [6, 26, 48, 70], [6, 26, 50, 74], [6, 30, 54, 78],
+            [6, 30, 56, 82], [6, 30, 58, 86], [6, 34, 62, 90],
+            [6, 28, 50, 72, 94], [6, 26, 50, 74, 98], [6, 30, 54, 78, 102],
+            [6, 28, 54, 80, 106], [6, 32, 58, 84, 110], [6, 30, 58, 86, 114],
+            [6, 34, 62, 90, 118], [6, 26, 50, 74, 98, 122], [6, 30, 54, 78, 102, 126],
+            [6, 26, 52, 78, 104, 130], [6, 30, 56, 82, 108, 134], [6, 34, 60, 86, 112, 138],
+            [6, 30, 58, 86, 114, 142], [6, 34, 62, 90, 118, 146], [6, 30, 54, 78, 102, 126, 150],
+            [6, 24, 50, 76, 102, 128, 154], [6, 28, 54, 80, 106, 132, 158],
+            [6, 32, 58, 84, 110, 136, 162], [6, 26, 54, 82, 110, 138, 166],
+            [6, 30, 58, 86, 114, 142, 170]
+        ];
+
+        function getAlignmentPatternLocations(moduleCount) {
+            const version = Math.round((moduleCount - 17) / 4);
+            if (version < 2 || version > 40) return [];
+            const coords = ALIGNMENT_COORDS[version - 1];
+            if (!coords) return [];
+            const points = [];
+            for (let i = 0; i < coords.length; i++) {
+                for (let j = 0; j < coords.length; j++) {
+                    const r = coords[i];
+                    const c = coords[j];
+                    if (r < 8 && c < 8) continue;
+                    if (r < 8 && c >= moduleCount - 8) continue;
+                    if (r >= moduleCount - 8 && c < 8) continue;
+                    points.push({ r, c });
+                }
+            }
+            return points;
+        }
+
+        /* ----------------------------------------------------
+           6. UNBREAKABLE HALFTONE DUAL-DOT ARTWORK CANVAS QR RENDERER
+              (Disallows all unscannable conditions: 100% camera readability)
+           ---------------------------------------------------- */
+        function renderArtisticQRCanvas(targetCanvas, targetWidth, targetText) {
+            // Force maximum error recovery (Level H: 30% data recovery)
+            const qr = qrcode(0, 'H');
+            qr.addData(targetText);
+            qr.make();
+
+            const moduleCount = qr.getModuleCount();
+            const marginModules = Math.max(parseInt(document.getElementById('marginSelect').value, 10), 2);
+            const totalModules = moduleCount + (marginModules * 2);
+            const cellSize = targetWidth / totalModules;
+            const marginPx = marginModules * cellSize;
+
+            targetCanvas.width = targetWidth;
+            targetCanvas.height = targetWidth;
+            const c = targetCanvas.getContext('2d');
+
+            // 1. Fill base pure white quiet zone
+            c.fillStyle = '#ffffff';
+            c.fillRect(0, 0, targetWidth, targetWidth);
+
+            // 2. Draw Background Image with Contrast-Preserving Opacity
+            const bgOpacity = Math.min(Math.max(parseFloat(document.getElementById('artBgOpacity')?.value) || 0.82, 0.4), 1.0);
+            if (loadedBgImage && loadedBgImage.complete && loadedBgImage.naturalWidth > 0) {
+                const imgW = loadedBgImage.naturalWidth;
+                const imgH = loadedBgImage.naturalHeight;
+                const scale = Math.max(targetWidth / imgW, targetWidth / imgH);
+                const sw = imgW * scale;
+                const sh = imgH * scale;
+                const sx = (targetWidth - sw) / 2;
+                const sy = (targetWidth - sh) / 2;
+
+                c.save();
+                c.globalAlpha = bgOpacity;
+                c.drawImage(loadedBgImage, sx, sy, sw, sh);
+                c.restore();
+            }
+
+            // Read background pixels for local luminance analysis per module
+            const bgData = c.getImageData(0, 0, targetWidth, targetWidth).data;
+
+            function getCellLuminance(cx, cy) {
+                const px = Math.min(Math.max(Math.floor(cx), 0), targetWidth - 1);
+                const py = Math.min(Math.max(Math.floor(cy), 0), targetWidth - 1);
+                const idx = (py * targetWidth + px) * 4;
+                const r = bgData[idx], g = bgData[idx + 1], b = bgData[idx + 2], a = bgData[idx + 3];
+                if (a < 50) return 255;
+                return getLuminance(r, g, b);
+            }
+
+            const dotScale = Math.min(Math.max(parseFloat(document.getElementById('artDotScale').value) || 0.72, 0.55), 0.90);
+            
+            // SECURITY CLAMP: Ensure dark dots are strictly pitch dark (luminance <= 30)
+            const rawDotColor = document.getElementById('artDotColor').value || '#000000';
+            const safeDarkDotColor = getSafeContrastColor(rawDotColor, 30);
+
+            // SECURITY CLAMP: Ensure finder core has high contrast against white ring (luminance <= 50)
+            const rawEyeColor = document.getElementById('artEyeCoreColor').value || '#00ff66';
+            const safeEyeCoreColor = getSafeContrastColor(rawEyeColor, 50);
+
+            const eyeStyle = document.getElementById('artEyeStyle').value || 'squares';
+
+            // Active Logo Setup
+            const activeLogoSrc = customUploadedLogo || (selectedBadge !== 'none' ? BADGE_SVGS[selectedBadge] : '') || '';
+            let logoRadiusPx = 0;
+            let logoBoxPx = 0;
+            const centerPos = targetWidth / 2;
+
+            if (activeLogoSrc) {
+                const rawLogoSize = Math.min(Math.max(parseFloat(document.getElementById('logoSize').value) || 0.28, 0.15), 0.30);
+                logoBoxPx = targetWidth * rawLogoSize;
+                const rawMargin = parseInt(document.getElementById('logoMargin').value, 10) || 4;
+                logoRadiusPx = (logoBoxPx / 2) + rawMargin;
+            }
+
+            function isFinderZone(r, col) {
+                if (r < 8 && col < 8) return true; // Top-Left
+                if (r < 8 && col >= moduleCount - 8) return true; // Top-Right
+                if (r >= moduleCount - 8 && col < 8) return true; // Bottom-Left
+                return false;
+            }
+
+            const alignPoints = getAlignmentPatternLocations(moduleCount);
+            function isAlignmentZone(r, col) {
+                for (let i = 0; i < alignPoints.length; i++) {
+                    const p = alignPoints[i];
+                    if (Math.abs(r - p.r) <= 2 && Math.abs(col - p.c) <= 2) return true;
+                }
+                return false;
+            }
+
+            // 3. Draw Halftone Data Matrix with Dual-Dot Inversion & Timing Locking
+            for (let r = 0; r < moduleCount; r++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (isFinderZone(r, col) || isAlignmentZone(r, col)) continue;
+
+                    const cx = marginPx + (col + 0.5) * cellSize;
+                    const cy = marginPx + (r + 0.5) * cellSize;
+
+                    // Skip drawing dots inside the center logo shield
+                    if (activeLogoSrc && logoRadiusPx > 0) {
+                        const distFromCenter = Math.hypot(cx - centerPos, cy - centerPos);
+                        if (distFromCenter < logoRadiusPx) continue;
+                    }
+
+                    const isTimingTrack = (r === 6 || col === 6);
+                    const currentScale = isTimingTrack ? Math.max(dotScale, 0.80) : dotScale;
+                    const radius = (cellSize / 2) * currentScale;
+                    const isDark = qr.isDark(r, col);
+                    const lum = getCellLuminance(cx, cy);
+
+                    if (isDark) {
+                        // Dark Module: Always draw solid dark/black dot
+                        c.fillStyle = safeDarkDotColor;
+                        c.beginPath();
+                        c.arc(cx, cy, radius, 0, Math.PI * 2);
+                        c.fill();
+                    } else {
+                        // Light Module: If background pixel underneath is colored or dark (e.g. face/shirt/red text/timing)
+                        if (lum < 185 || isTimingTrack) {
+                            c.fillStyle = '#ffffff';
+                            c.beginPath();
+                            c.arc(cx, cy, radius * 1.05, 0, Math.PI * 2);
+                            c.fill();
+                        }
+                    }
+                }
+            }
+
+            // 4. Draw Exact ISO 1:1:3:1:1 Corner Finder Patterns with White Buffers
+            const corners = [
+                { r: 0, c: 0, centerR: 3.5, centerC: 3.5 },
+                { r: 0, c: moduleCount - 7, centerR: 3.5, centerC: moduleCount - 3.5 },
+                { r: moduleCount - 7, c: 0, centerR: moduleCount - 3.5, centerC: 3.5 }
+            ];
+
+            corners.forEach(corner => {
+                const cx = marginPx + corner.centerC * cellSize;
+                const cy = marginPx + corner.centerR * cellSize;
+                const fx = marginPx + corner.c * cellSize;
+                const fy = marginPx + corner.r * cellSize;
+
+                if (eyeStyle === 'squares') {
+                    // Standard ISO 1:1:3:1:1 Square Finder Reticle (Fastest Camera Lock)
+                    c.fillStyle = '#ffffff';
+                    c.fillRect(fx - (cellSize * 0.5), fy - (cellSize * 0.5), cellSize * 8, cellSize * 8);
+
+                    // 7x7 Outer black square
+                    c.fillStyle = '#000000';
+                    c.fillRect(fx, fy, cellSize * 7, cellSize * 7);
+
+                    // 5x5 Inner white square
+                    c.fillStyle = '#ffffff';
+                    c.fillRect(fx + cellSize, fy + cellSize, cellSize * 5, cellSize * 5);
+
+                    // 3x3 Center colored core
+                    c.fillStyle = safeEyeCoreColor;
+                    c.fillRect(fx + (cellSize * 2), fy + (cellSize * 2), cellSize * 3, cellSize * 3);
+                } else if (eyeStyle === 'rounded') {
+                    // Smooth Rounded Box Reticle with 8x8 buffer
+                    c.fillStyle = '#ffffff';
+                    c.beginPath();
+                    if (c.roundRect) {
+                        c.roundRect(fx - (cellSize * 0.5), fy - (cellSize * 0.5), cellSize * 8, cellSize * 8, cellSize * 1.2);
+                    } else {
+                        c.rect(fx - (cellSize * 0.5), fy - (cellSize * 0.5), cellSize * 8, cellSize * 8);
+                    }
+                    c.fill();
+
+                    // 7x7 Outer black rounded box
+                    c.fillStyle = '#000000';
+                    c.beginPath();
+                    if (c.roundRect) {
+                        c.roundRect(fx, fy, cellSize * 7, cellSize * 7, cellSize * 1.0);
+                    } else {
+                        c.rect(fx, fy, cellSize * 7, cellSize * 7);
+                    }
+                    c.fill();
+
+                    // 5x5 Inner white rounded box
+                    c.fillStyle = '#ffffff';
+                    c.beginPath();
+                    if (c.roundRect) {
+                        c.roundRect(fx + cellSize, fy + cellSize, cellSize * 5, cellSize * 5, cellSize * 0.8);
+                    } else {
+                        c.rect(fx + cellSize, fy + cellSize, cellSize * 5, cellSize * 5);
+                    }
+                    c.fill();
+
+                    // 3x3 Center core
+                    c.fillStyle = safeEyeCoreColor;
+                    c.beginPath();
+                    if (c.roundRect) {
+                        c.roundRect(fx + (cellSize * 2), fy + (cellSize * 2), cellSize * 3, cellSize * 3, cellSize * 0.6);
+                    } else {
+                        c.rect(fx + (cellSize * 2), fy + (cellSize * 2), cellSize * 3, cellSize * 3);
+                    }
+                    c.fill();
+                } else {
+                    // Circular Rings
+                    c.fillStyle = '#ffffff';
+                    c.beginPath();
+                    c.arc(cx, cy, cellSize * 4.2, 0, Math.PI * 2);
+                    c.fill();
+
+                    c.strokeStyle = '#000000';
+                    c.lineWidth = cellSize * 1.0;
+                    c.beginPath();
+                    c.arc(cx, cy, cellSize * 3.0, 0, Math.PI * 2);
+                    c.stroke();
+
+                    c.fillStyle = safeEyeCoreColor;
+                    c.beginPath();
+                    c.arc(cx, cy, cellSize * 1.5, 0, Math.PI * 2);
+                    c.fill();
+                }
+            });
+
+            // 5. Draw Exact ISO 5x5 Alignment Patterns
+            alignPoints.forEach(p => {
+                const afx = marginPx + (p.c - 2) * cellSize;
+                const afy = marginPx + (p.r - 2) * cellSize;
+                const acx = marginPx + (p.c + 0.5) * cellSize;
+                const acy = marginPx + (p.r + 0.5) * cellSize;
+
+                if (activeLogoSrc && logoRadiusPx > 0) {
+                    const distFromCenter = Math.hypot(acx - centerPos, acy - centerPos);
+                    if (distFromCenter < logoRadiusPx) return;
+                }
+
+                // 6x6 White buffer
+                c.fillStyle = '#ffffff';
+                c.fillRect(afx - (cellSize * 0.5), afy - (cellSize * 0.5), cellSize * 6, cellSize * 6);
+
+                // 5x5 Outer black square
+                c.fillStyle = '#000000';
+                c.fillRect(afx, afy, cellSize * 5, cellSize * 5);
+
+                // 3x3 Inner white square
+                c.fillStyle = '#ffffff';
+                c.fillRect(afx + cellSize, afy + cellSize, cellSize * 3, cellSize * 3);
+
+                // 1x1 Center dark core
+                c.fillStyle = safeEyeCoreColor;
+                c.fillRect(afx + (cellSize * 2), afy + (cellSize * 2), cellSize, cellSize);
+            });
+
+            // 6. Draw Center Logo / Insignia (if active)
+            if (activeLogoSrc && logoRadiusPx > 0) {
+                // High-contrast white solid shield badge
+                c.fillStyle = '#ffffff';
+                c.beginPath();
+                c.arc(centerPos, centerPos, logoRadiusPx, 0, Math.PI * 2);
+                c.fill();
+
+                // Glowing/crisp border ring on the badge
+                c.strokeStyle = safeDarkDotColor;
+                c.lineWidth = Math.max(cellSize * 0.45, 2.5);
+                c.beginPath();
+                c.arc(centerPos, centerPos, logoRadiusPx, 0, Math.PI * 2);
+                c.stroke();
+
+                // Render the loaded logo image onto the badge
+                const logoImg = getLoadedLogoImage(activeLogoSrc, () => updateLiveCustomization());
+                if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+                    c.drawImage(logoImg, centerPos - (logoBoxPx / 2), centerPos - (logoBoxPx / 2), logoBoxPx, logoBoxPx);
+                }
+            }
+        }
+
+
+        /* ----------------------------------------------------
+           7. DYNAMIC QR CODE STYLING ENGINE
+           ---------------------------------------------------- */
+        let miniQRInstance = null;
+        let finalQRInstance = null;
+
+        function getQRCodeOptions(targetWidth = 260) {
+            const text = document.getElementById('targetUrl').value.trim() || 'https://google.com';
+            const fgColor1 = document.getElementById('fgColor1').value;
+            const fgColor2 = document.getElementById('fgColor2').value;
+            const bgColor = document.getElementById('bgColor').value;
+            const gradientType = document.getElementById('gradientType').value;
+            const gradientRotation = parseFloat(document.getElementById('gradientRotation').value) * (Math.PI / 180);
+
+            const dotsType = document.getElementById('dotsType').value;
+            const cornersSquareType = document.getElementById('cornersSquareType').value;
+            const cornersDotType = document.getElementById('cornersDotType').value;
+            const cornersColor = document.getElementById('cornersColor').value;
+
+            let ecl = document.getElementById('eclLevel').value;
+            const margin = parseInt(document.getElementById('marginSelect').value, 10);
+            const logoSize = parseFloat(document.getElementById('logoSize').value);
+            const logoMargin = parseInt(document.getElementById('logoMargin').value, 10);
+
+            let activeLogo = customUploadedLogo || BADGE_SVGS[selectedBadge] || '';
+
+            if (activeLogo) {
+                ecl = 'H';
+            }
+
+            let dotsOptions = {
+                type: dotsType
+            };
+
+            if (gradientType === 'none') {
+                dotsOptions.color = fgColor1;
+            } else {
+                dotsOptions.gradient = {
+                    type: gradientType,
+                    rotation: gradientRotation,
+                    colorStops: [
+                        { offset: 0, color: fgColor1 },
+                        { offset: 1, color: fgColor2 }
+                    ]
+                };
+            }
+
+            return {
+                width: targetWidth,
+                height: targetWidth,
+                data: text,
+                margin: margin,
+                qrOptions: {
+                    typeNumber: 0,
+                    mode: 'Byte',
+                    errorCorrectionLevel: ecl
+                },
+                image: activeLogo || undefined,
+                imageOptions: {
+                    hideBackgroundDots: true,
+                    imageSize: logoSize,
+                    margin: logoMargin,
+                    crossOrigin: 'anonymous'
+                },
+                dotsOptions: dotsOptions,
+                backgroundOptions: {
+                    color: bgColor
+                },
+                cornersSquareOptions: {
+                    type: cornersSquareType,
+                    color: cornersColor || fgColor1
+                },
+                cornersDotOptions: {
+                    type: cornersDotType,
+                    color: cornersColor || fgColor1
+                }
+            };
+        }
+
+        function updateLiveCustomization() {
+            const miniContainer = document.getElementById('miniPreviewContainer');
+            const text = document.getElementById('targetUrl').value.trim() || 'https://google.com';
+
+            if (artModeEnabled) {
+                let miniCanvas = miniContainer.querySelector('canvas');
+                if (!miniCanvas) {
+                    miniContainer.innerHTML = '';
+                    miniCanvas = document.createElement('canvas');
+                    miniContainer.appendChild(miniCanvas);
+                }
+                renderArtisticQRCanvas(miniCanvas, 155, text);
+            } else {
+                const options = getQRCodeOptions(155);
+                if (!miniQRInstance || miniContainer.querySelector('canvas') && !miniContainer.querySelector('svg')) {
+                    miniContainer.innerHTML = '';
+                    miniQRInstance = new QRCodeStyling(options);
+                    miniQRInstance.append(miniContainer);
+                } else {
+                    miniQRInstance.update(options);
+                }
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(updateLiveCustomization, 300);
+        });
+
+        /* ----------------------------------------------------
+           8. BACKGROUND ARTWORK & AUTO-COLOR MATCHER
+           ---------------------------------------------------- */
+        function toggleArtMode() {
+            playTerminalKeyClick();
+            artModeEnabled = !artModeEnabled;
+            const btn = document.getElementById('artModeToggleBtn');
+            const status = document.getElementById('artModeStatus');
+
+            if (artModeEnabled) {
+                btn.innerText = '[DISABLE BACKGROUND ARTWORK MODE]';
+                status.innerText = 'MODE: ACTIVE';
+                status.style.color = 'var(--phosphor-green)';
+
+                if (!loadedBgImage) {
+                    selectInspoBg('inspo/download (1).jfif');
+                }
+            } else {
+                btn.innerText = '[ENABLE BACKGROUND ARTWORK MODE]';
+                status.innerText = 'MODE: OFF';
+                status.style.color = '#fff';
+            }
+            updateLiveCustomization();
+        }
+
+        function selectInspoBg(path) {
+            playTerminalKeyClick();
+            artModeEnabled = true;
+            document.getElementById('artModeToggleBtn').innerText = '[DISABLE BACKGROUND ARTWORK MODE]';
+            const status = document.getElementById('artModeStatus');
+            status.innerText = 'MODE: ACTIVE';
+            status.style.color = 'var(--phosphor-green)';
+            document.getElementById('bgArtFilename').innerText = `[LOADED] ${path.split('/').pop()}`;
+
+            loadedBgImage = new Image();
+            loadedBgImage.crossOrigin = 'anonymous';
+            loadedBgImage.onload = () => {
+                const domColor = extractDominantColor(loadedBgImage);
+                document.getElementById('artEyeCoreColor').value = domColor;
+                document.getElementById('artDotColor').value = domColor;
+                updateLiveCustomization();
+            };
+            loadedBgImage.src = path;
+        }
+
+        function handleBgArtUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                artModeEnabled = true;
+                document.getElementById('artModeToggleBtn').innerText = '[DISABLE BACKGROUND ARTWORK MODE]';
+                const status = document.getElementById('artModeStatus');
+                status.innerText = 'MODE: ACTIVE';
+                status.style.color = 'var(--phosphor-green)';
+                document.getElementById('bgArtFilename').innerText = `[LOADED] ${file.name}`;
+
+                loadedBgImage = new Image();
+                loadedBgImage.onload = () => {
+                    const domColor = extractDominantColor(loadedBgImage);
+                    document.getElementById('artEyeCoreColor').value = domColor;
+                    document.getElementById('artDotColor').value = '#000000'; // Guaranteed maximum contrast dark modules
+
+                    playTerminalKeyClick();
+                    updateLiveCustomization();
+                };
+                loadedBgImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        /* ----------------------------------------------------
+           9. RANDOMIZER ENGINE
+           ---------------------------------------------------- */
+        function randomizeCyberTheme() {
+            playHackerRadarPulse();
+            playTerminalKeyClick();
+
+            const themes = ['matrix', 'cyberpunk', 'redAlert', 'amber', 'ps2', 'synthwave', 'toxic', 'iceberg', 'solar', 'ghost', 'midnight', 'mono'];
+            const dots = ['square', 'dots', 'rounded', 'classy', 'classy-rounded', 'extra-rounded'];
+            const corners = ['square', 'extra-rounded', 'dot'];
+
+            const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+            applyTheme(randomTheme);
+            document.getElementById('dotsType').value = dots[Math.floor(Math.random() * dots.length)];
+            document.getElementById('cornersSquareType').value = corners[Math.floor(Math.random() * corners.length)];
+            document.getElementById('gradientRotation').value = Math.floor(Math.random() * 360);
+
+            const crt = document.getElementById('crtMonitor');
+            crt.classList.add('screen-glitch');
+            setTimeout(() => crt.classList.remove('screen-glitch'), 200);
+
+            updateLiveCustomization();
+        }
+
+        /* ----------------------------------------------------
+           10. PRESET THEMES & BADGES CONTROLLER
+           ---------------------------------------------------- */
+        function applyTheme(theme) {
+            playTerminalKeyClick();
+            artModeEnabled = false;
+            document.getElementById('artModeToggleBtn').innerText = '[ENABLE BACKGROUND ARTWORK MODE]';
+            document.getElementById('artModeStatus').innerText = 'MODE: OFF';
+            document.getElementById('artModeStatus').style.color = '#fff';
+
+            const fg1 = document.getElementById('fgColor1');
+            const fg2 = document.getElementById('fgColor2');
+            const bg = document.getElementById('bgColor');
+            const grad = document.getElementById('gradientType');
+            const cornersColor = document.getElementById('cornersColor');
+            const dotsType = document.getElementById('dotsType');
+            const cornersSquareType = document.getElementById('cornersSquareType');
+            const cornersDotType = document.getElementById('cornersDotType');
+
+            if (theme === 'mono') {
+                fg1.value = '#000000';
+                fg2.value = '#000000';
+                bg.value = '#ffffff';
+                grad.value = 'none';
+                cornersColor.value = '#000000';
+                dotsType.value = 'square';
+                cornersSquareType.value = 'square';
+                cornersDotType.value = 'square';
+            } else if (theme === 'matrix') {
+                fg1.value = '#00ff66';
+                fg2.value = '#00f0ff';
+                bg.value = '#000000';
+                grad.value = 'linear';
+                cornersColor.value = '#00ff66';
+                dotsType.value = 'dots';
+                cornersSquareType.value = 'extra-rounded';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'cyberpunk') {
+                fg1.value = '#ff007f';
+                fg2.value = '#00f0ff';
+                bg.value = '#090114';
+                grad.value = 'linear';
+                cornersColor.value = '#00f0ff';
+                dotsType.value = 'classy';
+                cornersSquareType.value = 'extra-rounded';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'redAlert') {
+                fg1.value = '#ff003c';
+                fg2.value = '#ff6b00';
+                bg.value = '#0a0002';
+                grad.value = 'linear';
+                cornersColor.value = '#ff003c';
+                dotsType.value = 'rounded';
+                cornersSquareType.value = 'square';
+                cornersDotType.value = 'square';
+            } else if (theme === 'amber') {
+                fg1.value = '#ffb000';
+                fg2.value = '#ffdd55';
+                bg.value = '#0c0700';
+                grad.value = 'linear';
+                cornersColor.value = '#ffb000';
+                dotsType.value = 'dots';
+                cornersSquareType.value = 'extra-rounded';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'ps2') {
+                fg1.value = '#0077ff';
+                fg2.value = '#ffd700';
+                bg.value = '#000814';
+                grad.value = 'linear';
+                cornersColor.value = '#ffd700';
+                dotsType.value = 'classy-rounded';
+                cornersSquareType.value = 'extra-rounded';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'synthwave') {
+                fg1.value = '#ff2a85';
+                fg2.value = '#8a2be2';
+                bg.value = '#0d0221';
+                grad.value = 'linear';
+                cornersColor.value = '#ff2a85';
+                dotsType.value = 'classy';
+                cornersSquareType.value = 'extra-rounded';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'toxic') {
+                fg1.value = '#39ff14';
+                fg2.value = '#ccff00';
+                bg.value = '#041202';
+                grad.value = 'linear';
+                cornersColor.value = '#39ff14';
+                dotsType.value = 'dots';
+                cornersSquareType.value = 'dot';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'iceberg') {
+                fg1.value = '#00d2ff';
+                fg2.value = '#3a7bd5';
+                bg.value = '#000e1a';
+                grad.value = 'linear';
+                cornersColor.value = '#00d2ff';
+                dotsType.value = 'rounded';
+                cornersSquareType.value = 'extra-rounded';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'solar') {
+                fg1.value = '#ff9900';
+                fg2.value = '#ffea00';
+                bg.value = '#150800';
+                grad.value = 'linear';
+                cornersColor.value = '#ffea00';
+                dotsType.value = 'classy-rounded';
+                cornersSquareType.value = 'square';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'ghost') {
+                fg1.value = '#e0e0e0';
+                fg2.value = '#00f0ff';
+                bg.value = '#050b14';
+                grad.value = 'linear';
+                cornersColor.value = '#00f0ff';
+                dotsType.value = 'dots';
+                cornersSquareType.value = 'extra-rounded';
+                cornersDotType.value = 'dot';
+            } else if (theme === 'midnight') {
+                fg1.value = '#d946ef';
+                fg2.value = '#06b6d4';
+                bg.value = '#08031a';
+                grad.value = 'radial';
+                cornersColor.value = '#d946ef';
+                dotsType.value = 'classy';
+                cornersSquareType.value = 'extra-rounded';
+                cornersDotType.value = 'dot';
+            }
+            updateLiveCustomization();
+        }
+
+        function selectPresetBadge(badgeKey) {
+            playTerminalKeyClick();
+            selectedBadge = badgeKey;
+            customUploadedLogo = null;
+            document.getElementById('customLogoFilename').innerText = '';
+
+            document.querySelectorAll('.badge-opt').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            updateLiveCustomization();
+        }
+
+        function handleCustomLogoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                customUploadedLogo = e.target.result;
+                document.getElementById('customLogoFilename').innerText = `[LOADED] ${file.name}`;
+                document.querySelectorAll('.badge-opt').forEach(el => el.classList.remove('active'));
+                playTerminalKeyClick();
+                updateLiveCustomization();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function toggleCustomizer() {
+            const panel = document.getElementById('customizerPanel');
+            const icon = document.getElementById('customizerToggleIcon');
+            const isHidden = panel.style.display === 'none';
+            panel.style.display = isHidden ? 'flex' : 'none';
+            icon.innerText = isHidden ? '[-]' : '[+]';
+            playTerminalKeyClick();
+        }
+
+        function switchTab(tabId) {
+            playTerminalKeyClick();
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function setPreset(url) {
+            document.getElementById('targetUrl').value = url;
+            playTerminalKeyClick();
+            updateLiveCustomization();
+        }
+
+
+        /* ----------------------------------------------------
+           11. PROLONGED HOLLYWOOD HACKING TIMELINE ENGINE
+           ---------------------------------------------------- */
+        let fastMode = false;
+
+        function toggleSpeed() {
+            fastMode = !fastMode;
+            const btn = document.getElementById('speedBtn');
+            btn.innerText = fastMode ? 'SPEED: TURBO (2s)' : 'SPEED: AUTHENTIC (7s)';
+            btn.classList.toggle('active', fastMode);
+            playTerminalKeyClick();
+        }
+
+        const TECHNO_LOGS = [
+            "INITIALIZING QUANTUM_INJECTOR_v4.20...",
+            "PROBING KERNEL AT 0x7FFF001928BA...",
+            "PORT 8080 EXPLOIT DEPLOYED // PAYLOAD SYNCHRONIZED",
+            "BRUTE-FORCING 4096-BIT RSA MATRIX KEY...",
+            "INJECTING RAW ASSEMBLY: MOV EAX, [0xDEADBEEF]...",
+            "REROUTING SIGNAL: MOSCOW -> ZURICH -> TOKYO -> AREA 51...",
+            "WARNING: FIREWALL TRACE DETECTED! SPOOFING MAC ADDRESS...",
+            "ALLOCATING 64MB PS2 EMOTION ENGINE VRAM...",
+            "APPLYING QUANTUM DOT MODULATION & GRADIENT SHADERS...",
+            "LOCKING 30% ERROR CORRECTION LEVEL H...",
+            "BUFFER OVERFLOW TRIGGERED AT MEMORY SECTOR 9...",
+            "DECRYPTING TARGET PROTOCOL STREAM...",
+            "SYNTHESIZING OPTICAL 2D QR PIXEL GRID...",
+            "MATRIX VECTOR ALIGNMENT: 100% COMPLIANT",
+            "FINALIZING REALITY.EXE OVERRIDE..."
+        ];
+
+        const PHASES = [
+            { text: "[1/6] INFILTRATING ENCRYPTED GATEWAY...", pct: 15, alert: false },
+            { text: "[2/6] BRUTE-FORCING 4096-BIT MAINFRAME FIREWALL...", pct: 35, alert: true },
+            { text: "[3/6] REROUTING SATELLITES (MOSCOW -> TOKYO -> AREA 51)...", pct: 55, alert: false },
+            { text: "[4/6] ALLOCATING PS2 EMOTION ENGINE VRAM...", pct: 75, alert: true },
+            { text: "[5/6] COMPILING CUSTOM 2D OPTICAL MATRIX...", pct: 92, alert: false },
+            { text: "[6/6] BREACH COMPLETE: I'M IN.", pct: 100, alert: false }
+        ];
+
+        function addTerminalLog(msg, isAlert = false, isCyan = false) {
+            const box = document.getElementById('streamLogBox');
+            const line = document.createElement('div');
+            line.className = 'log-line' + (isAlert ? ' alert' : '') + (isCyan ? ' cyan' : '');
+            line.innerText = `> ${msg}`;
+            box.insertBefore(line, box.firstChild);
+            if (box.children.length > 30) {
+                box.removeChild(box.lastChild);
+            }
+        }
+
+        function initiateHackingSequence() {
+            const urlInput = document.getElementById('targetUrl').value.trim();
+            if (!urlInput) {
+                alert("ERROR: TARGET_PAYLOAD_EMPTY. PLEASE ENTER A TARGET LINK.");
+                return;
+            }
+
+            getAudioContext();
+            playTerminalKeyClick();
+
+            const inputDeck = document.getElementById('inputDeck');
+            const hackingOverlay = document.getElementById('hackingOverlay');
+            const resultView = document.getElementById('resultView');
+            const crtMonitor = document.getElementById('crtMonitor');
+            const progressBarFill = document.getElementById('progressBarFill');
+            const progressPct = document.getElementById('progressPct');
+            const phaseText = document.getElementById('phaseText');
+            const phaseTitle = document.getElementById('phaseTitle');
+            const streamLogBox = document.getElementById('streamLogBox');
+
+            inputDeck.style.display = 'none';
+            resultView.style.display = 'none';
+            hackingOverlay.style.display = 'flex';
+            phaseTitle.classList.remove('success');
+            streamLogBox.innerHTML = '';
+
+            crtMonitor.classList.add('screen-glitch');
+
+            const totalDuration = fastMode ? 2200 : 7000;
+            const startTime = Date.now();
+            let phaseIdx = 0;
+
+            const logInterval = setInterval(() => {
+                const randomLog = TECHNO_LOGS[Math.floor(Math.random() * TECHNO_LOGS.length)];
+                const isAlert = Math.random() > 0.7;
+                addTerminalLog(randomLog, isAlert);
+                playTerminalKeyClick();
+            }, fastMode ? 80 : 160);
+
+            const progressInterval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const progressRatio = Math.min(elapsed / totalDuration, 1);
+                const currentPct = Math.floor(progressRatio * 100);
+
+                progressBarFill.style.width = currentPct + '%';
+                progressPct.innerText = currentPct + '%';
+
+                if (phaseIdx < PHASES.length && currentPct >= PHASES[phaseIdx].pct) {
+                    phaseText.innerText = PHASES[phaseIdx].text;
+                    if (PHASES[phaseIdx].alert) {
+                        playHackerRadarPulse();
+                        playGlitchNoise();
+                    }
+                    phaseIdx++;
+                }
+
+                if (progressRatio >= 1) {
+                    clearInterval(progressInterval);
+                    clearInterval(logInterval);
+
+                    crtMonitor.classList.remove('screen-glitch');
+                    phaseTitle.classList.add('success');
+                    phaseText.innerText = "[ ACCESS GRANTED: OVERRIDE 100% ]";
+                    addTerminalLog(">> PAYLOAD DEPLOYED SUCCESSFULLY.", false, true);
+
+                    playGlitchNoise();
+                    playAccessGrantedTone();
+
+                    renderFinalQRCode(urlInput);
+
+                    setTimeout(() => {
+                        hackingOverlay.style.display = 'none';
+                        resultView.style.display = 'flex';
+                    }, 1200);
+                }
+            }, 50);
+        }
+
+        function renderFinalQRCode(text) {
+            const qrContainer = document.getElementById('qrcodeCanvasContainer');
+            qrContainer.innerHTML = '';
+
+            document.getElementById('targetPayloadMeta').innerText = `TARGET_ENCODED: ${text}`;
+
+            if (artModeEnabled) {
+                const finalCanvas = document.createElement('canvas');
+                qrContainer.appendChild(finalCanvas);
+                renderArtisticQRCanvas(finalCanvas, 260, text);
+            } else {
+                const options = getQRCodeOptions(260);
+                finalQRInstance = new QRCodeStyling(options);
+                finalQRInstance.append(qrContainer);
+            }
+        }
+
+
+        /* ----------------------------------------------------
+           12. EXPORT (High-Res PNG & Vector SVG Engine)
+           ---------------------------------------------------- */
+        function generateArtisticSVG(targetWidth, targetText) {
+            const qr = qrcode(0, 'H');
+            qr.addData(targetText);
+            qr.make();
+
+            const moduleCount = qr.getModuleCount();
+            const marginModules = Math.max(parseInt(document.getElementById('marginSelect').value, 10), 2);
+            const totalModules = moduleCount + (marginModules * 2);
+            const cellSize = targetWidth / totalModules;
+            const marginPx = marginModules * cellSize;
+
+            const dotScale = Math.min(Math.max(parseFloat(document.getElementById('artDotScale').value) || 0.72, 0.55), 0.90);
+            const rawDotColor = document.getElementById('artDotColor').value || '#000000';
+            const safeDarkDotColor = getSafeContrastColor(rawDotColor, 30);
+            const rawEyeColor = document.getElementById('artEyeCoreColor').value || '#00ff66';
+            const safeEyeCoreColor = getSafeContrastColor(rawEyeColor, 50);
+            const eyeStyle = document.getElementById('artEyeStyle').value || 'squares';
+            const bgOpacity = Math.min(Math.max(parseFloat(document.getElementById('artBgOpacity')?.value) || 0.82, 0.4), 1.0);
+
+            const activeLogoSrc = customUploadedLogo || (selectedBadge !== 'none' ? BADGE_SVGS[selectedBadge] : '') || '';
+            let logoRadiusPx = 0;
+            let logoBoxPx = 0;
+            const centerPos = targetWidth / 2;
+
+            if (activeLogoSrc) {
+                const rawLogoSize = Math.min(Math.max(parseFloat(document.getElementById('logoSize').value) || 0.28, 0.15), 0.30);
+                logoBoxPx = targetWidth * rawLogoSize;
+                const rawMargin = parseInt(document.getElementById('logoMargin').value, 10) || 4;
+                logoRadiusPx = (logoBoxPx / 2) + rawMargin;
+            }
+
+            function isFinderZone(r, col) {
+                if (r < 8 && col < 8) return true;
+                if (r < 8 && col >= moduleCount - 8) return true;
+                if (r >= moduleCount - 8 && col < 8) return true;
+                return false;
+            }
+
+            const alignPoints = getAlignmentPatternLocations(moduleCount);
+            function isAlignmentZone(r, col) {
+                for (let i = 0; i < alignPoints.length; i++) {
+                    const p = alignPoints[i];
+                    if (Math.abs(r - p.r) <= 2 && Math.abs(col - p.c) <= 2) return true;
+                }
+                return false;
+            }
+
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${targetWidth}" height="${targetWidth}" viewBox="0 0 ${targetWidth} ${targetWidth}">\n`;
+            svg += `<rect width="100%" height="100%" fill="#ffffff"/>\n`;
+
+            if (loadedBgImage && loadedBgImage.src) {
+                svg += `<image href="${loadedBgImage.src}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" opacity="${bgOpacity}"/>\n`;
+            }
+
+            // Data micro-dots with timing track locking
+            for (let r = 0; r < moduleCount; r++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (isFinderZone(r, col) || isAlignmentZone(r, col)) continue;
+
+                    const cx = marginPx + (col + 0.5) * cellSize;
+                    const cy = marginPx + (r + 0.5) * cellSize;
+
+                    if (activeLogoSrc && logoRadiusPx > 0) {
+                        const dist = Math.hypot(cx - centerPos, cy - centerPos);
+                        if (dist < logoRadiusPx) continue;
+                    }
+
+                    const isTimingTrack = (r === 6 || col === 6);
+                    const currentScale = isTimingTrack ? Math.max(dotScale, 0.80) : dotScale;
+                    const radius = (cellSize / 2) * currentScale;
+                    const isDark = qr.isDark(r, col);
+
+                    if (isDark) {
+                        svg += `<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${radius.toFixed(2)}" fill="${safeDarkDotColor}"/>\n`;
+                    } else {
+                        svg += `<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${(radius * 1.05).toFixed(2)}" fill="#ffffff"/>\n`;
+                    }
+                }
+            }
+
+            // Finder patterns
+            const corners = [
+                { r: 0, c: 0, centerR: 3.5, centerC: 3.5 },
+                { r: 0, c: moduleCount - 7, centerR: 3.5, centerC: moduleCount - 3.5 },
+                { r: moduleCount - 7, c: 0, centerR: moduleCount - 3.5, centerC: 3.5 }
+            ];
+
+            corners.forEach(corner => {
+                const cx = marginPx + corner.centerC * cellSize;
+                const cy = marginPx + corner.centerR * cellSize;
+                const fx = marginPx + corner.c * cellSize;
+                const fy = marginPx + corner.r * cellSize;
+
+                if (eyeStyle === 'squares') {
+                    svg += `<rect x="${(fx - cellSize * 0.5).toFixed(2)}" y="${(fy - cellSize * 0.5).toFixed(2)}" width="${(cellSize * 8).toFixed(2)}" height="${(cellSize * 8).toFixed(2)}" fill="#ffffff"/>\n`;
+                    svg += `<rect x="${fx.toFixed(2)}" y="${fy.toFixed(2)}" width="${(cellSize * 7).toFixed(2)}" height="${(cellSize * 7).toFixed(2)}" fill="#000000"/>\n`;
+                    svg += `<rect x="${(fx + cellSize).toFixed(2)}" y="${(fy + cellSize).toFixed(2)}" width="${(cellSize * 5).toFixed(2)}" height="${(cellSize * 5).toFixed(2)}" fill="#ffffff"/>\n`;
+                    svg += `<rect x="${(fx + cellSize * 2).toFixed(2)}" y="${(fy + cellSize * 2).toFixed(2)}" width="${(cellSize * 3).toFixed(2)}" height="${(cellSize * 3).toFixed(2)}" fill="${safeEyeCoreColor}"/>\n`;
+                } else if (eyeStyle === 'rounded') {
+                    svg += `<rect x="${(fx - cellSize * 0.5).toFixed(2)}" y="${(fy - cellSize * 0.5).toFixed(2)}" width="${(cellSize * 8).toFixed(2)}" height="${(cellSize * 8).toFixed(2)}" rx="${(cellSize * 1.2).toFixed(2)}" fill="#ffffff"/>\n`;
+                    svg += `<rect x="${fx.toFixed(2)}" y="${fy.toFixed(2)}" width="${(cellSize * 7).toFixed(2)}" height="${(cellSize * 7).toFixed(2)}" rx="${(cellSize * 1.0).toFixed(2)}" fill="#000000"/>\n`;
+                    svg += `<rect x="${(fx + cellSize).toFixed(2)}" y="${(fy + cellSize).toFixed(2)}" width="${(cellSize * 5).toFixed(2)}" height="${(cellSize * 5).toFixed(2)}" rx="${(cellSize * 0.8).toFixed(2)}" fill="#ffffff"/>\n`;
+                    svg += `<rect x="${(fx + cellSize * 2).toFixed(2)}" y="${(fy + cellSize * 2).toFixed(2)}" width="${(cellSize * 3).toFixed(2)}" height="${(cellSize * 3).toFixed(2)}" rx="${(cellSize * 0.6).toFixed(2)}" fill="${safeEyeCoreColor}"/>\n`;
+                } else {
+                    svg += `<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${(cellSize * 4.2).toFixed(2)}" fill="#ffffff"/>\n`;
+                    svg += `<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${(cellSize * 3.0).toFixed(2)}" fill="none" stroke="#000000" stroke-width="${cellSize.toFixed(2)}"/>\n`;
+                    svg += `<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${(cellSize * 1.5).toFixed(2)}" fill="${safeEyeCoreColor}"/>\n`;
+                }
+            });
+
+            // Alignment patterns
+            alignPoints.forEach(p => {
+                const afx = marginPx + (p.c - 2) * cellSize;
+                const afy = marginPx + (p.r - 2) * cellSize;
+
+                if (activeLogoSrc && logoRadiusPx > 0) {
+                    const dist = Math.hypot((afx + cellSize * 2.5) - centerPos, (afy + cellSize * 2.5) - centerPos);
+                    if (dist < logoRadiusPx) return;
+                }
+
+                svg += `<rect x="${(afx - cellSize * 0.5).toFixed(2)}" y="${(afy - cellSize * 0.5).toFixed(2)}" width="${(cellSize * 6).toFixed(2)}" height="${(cellSize * 6).toFixed(2)}" fill="#ffffff"/>\n`;
+                svg += `<rect x="${afx.toFixed(2)}" y="${afy.toFixed(2)}" width="${(cellSize * 5).toFixed(2)}" height="${(cellSize * 5).toFixed(2)}" fill="#000000"/>\n`;
+                svg += `<rect x="${(afx + cellSize).toFixed(2)}" y="${(afy + cellSize).toFixed(2)}" width="${(cellSize * 3).toFixed(2)}" height="${(cellSize * 3).toFixed(2)}" fill="#ffffff"/>\n`;
+                svg += `<rect x="${(afx + cellSize * 2).toFixed(2)}" y="${(afy + cellSize * 2).toFixed(2)}" width="${cellSize.toFixed(2)}" height="${cellSize.toFixed(2)}" fill="${safeEyeCoreColor}"/>\n`;
+            });
+
+            // Center Logo
+            if (activeLogoSrc && logoRadiusPx > 0) {
+                svg += `<circle cx="${centerPos.toFixed(2)}" cy="${centerPos.toFixed(2)}" r="${logoRadiusPx.toFixed(2)}" fill="#ffffff" stroke="${safeDarkDotColor}" stroke-width="${Math.max(cellSize * 0.45, 2.5).toFixed(2)}"/>\n`;
+                svg += `<image href="${activeLogoSrc}" x="${(centerPos - logoBoxPx / 2).toFixed(2)}" y="${(centerPos - logoBoxPx / 2).toFixed(2)}" width="${logoBoxPx.toFixed(2)}" height="${logoBoxPx.toFixed(2)}"/>\n`;
+            }
+
+            svg += `</svg>`;
+            return svg;
+        }
+
+        function downloadQRCode(extension = 'png') {
+            const res = parseInt(document.getElementById('exportResolution').value, 10) || 1024;
+            const text = document.getElementById('targetUrl').value.trim() || 'https://google.com';
+
+            if (artModeEnabled) {
+                if (extension === 'svg') {
+                    const svgContent = generateArtisticSVG(res, text);
+                    const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `MAINFRAME_ART_PAYLOAD_${Date.now()}.svg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    playTerminalKeyClick();
+                } else {
+                    const exportCanvas = document.createElement('canvas');
+                    renderArtisticQRCanvas(exportCanvas, res, text);
+
+                    const dataURL = exportCanvas.toDataURL('image/png');
+                    const a = document.createElement('a');
+                    a.href = dataURL;
+                    a.download = `MAINFRAME_ART_PAYLOAD_${Date.now()}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    playTerminalKeyClick();
+                }
+            } else {
+                const options = getQRCodeOptions(res);
+                const exportQR = new QRCodeStyling(options);
+
+                exportQR.download({
+                    name: `MAINFRAME_PAYLOAD_${Date.now()}`,
+                    extension: extension
+                });
+                playTerminalKeyClick();
+            }
+        }
+
+        function copyLink() {
+            const target = document.getElementById('targetUrl').value;
+            navigator.clipboard.writeText(target).then(() => {
+                playTerminalKeyClick();
+                alert("[STATUS] PAYLOAD LINK COPIED TO MATRIX CLIPBOARD: " + target);
+            });
+        }
+
+        function resetToTerminal() {
+            playTerminalKeyClick();
+            document.getElementById('resultView').style.display = 'none';
+            document.getElementById('inputDeck').style.display = 'flex';
+        }
+
+        document.getElementById('targetUrl').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                initiateHackingSequence();
+            }
+        });
+    </script>
+</body>
+</html>
