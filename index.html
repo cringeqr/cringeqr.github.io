@@ -2095,7 +2095,7 @@
             return hexColor;
         }
 
-        function extractDominantColor(img) {
+        function extractImagePalette(img) {
             try {
                 const c = document.createElement('canvas');
                 const ctx = c.getContext('2d');
@@ -2104,38 +2104,51 @@
                 ctx.drawImage(img, 0, 0, 64, 64);
                 const data = ctx.getImageData(0, 0, 64, 64).data;
 
-                const colorCounts = {};
-                let maxCount = 0;
-                let dominantHex = '#005522';
+                const colorMap = {};
+                let dominantVibrantHex = '#00ff66';
+                let maxVibrantScore = -1;
+                let darkCandidateHex = '#001a08';
+                let minLum = 999;
 
                 for (let i = 0; i < data.length; i += 4) {
                     const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
-                    if (a < 80) continue;
+                    if (a < 90) continue;
 
                     const max = Math.max(r, g, b);
                     const min = Math.min(r, g, b);
-                    const saturation = max === 0 ? 0 : (max - min) / max;
-                    const luminance = getLuminance(r, g, b);
+                    const sat = max === 0 ? 0 : (max - min) / max;
+                    const lum = getLuminance(r, g, b);
 
-                    // Ignore pure whites and extreme neutral grays
-                    if (luminance > 245 || luminance < 10 || saturation < 0.12) {
-                        continue;
+                    // Quantize colors to 16-step intervals
+                    const qr = Math.min(Math.round(r / 16) * 16, 255);
+                    const qg = Math.min(Math.round(g / 16) * 16, 255);
+                    const qb = Math.min(Math.round(b / 16) * 16, 255);
+                    const hex = '#' + ((1 << 24) + (qr << 16) + (qg << 8) + qb).toString(16).slice(1);
+
+                    colorMap[hex] = (colorMap[hex] || 0) + 1;
+
+                    // Score vibrant accent color (high saturation, pleasant visibility)
+                    const vibrantScore = (sat * 3.0) + (lum > 40 && lum < 220 ? 1.5 : 0);
+                    if (sat > 0.12 && lum > 35 && lum < 235 && vibrantScore > maxVibrantScore) {
+                        maxVibrantScore = vibrantScore;
+                        dominantVibrantHex = hex;
                     }
 
-                    const qr = Math.round(r / 16) * 16;
-                    const qg = Math.round(g / 16) * 16;
-                    const qb = Math.round(b / 16) * 16;
-                    const key = `${qr},${qg},${qb}`;
-
-                    colorCounts[key] = (colorCounts[key] || 0) + 1;
-                    if (colorCounts[key] > maxCount) {
-                        maxCount = colorCounts[key];
-                        dominantHex = '#' + ((1 << 24) + (Math.min(qr, 255) << 16) + (Math.min(qg, 255) << 8) + Math.min(qb, 255)).toString(16).slice(1);
+                    // Track deepest dark tone for high-contrast modules
+                    if (lum < minLum && lum > 10) {
+                        minLum = lum;
+                        darkCandidateHex = hex;
                     }
                 }
-                return getSafeContrastColor(dominantHex, 55);
+
+                const safeDarkDot = getSafeContrastColor(darkCandidateHex || dominantVibrantHex, 75);
+
+                return {
+                    accent: dominantVibrantHex || '#00ff66',
+                    darkDot: safeDarkDot || '#000000'
+                };
             } catch (e) {
-                return '#005522';
+                return { accent: '#00ff66', darkDot: '#000000' };
             }
         }
 
@@ -2256,13 +2269,14 @@
 
             const dotScale = Math.min(Math.max(parseFloat(document.getElementById('artDotScale').value) || 0.72, 0.55), 0.90);
 
-            // SECURITY CLAMP: Ensure dark dots are strictly pitch dark (luminance <= 30)
+            // Lenient & High-Visibility Scannability Thresholds:
+            // 1. Dark Dots: Allows rich deep hues (navy, forest green, crimson, chocolate) up to luminance 85
             const rawDotColor = document.getElementById('artDotColor').value || '#000000';
-            const safeDarkDotColor = getSafeContrastColor(rawDotColor, 30);
+            const safeDarkDotColor = getSafeContrastColor(rawDotColor, 85);
 
-            // SECURITY CLAMP: Ensure finder core has high contrast against white ring (luminance <= 50)
+            // 2. Eye Core Accent: Surrounded by white 5x5 buffer, allowing vibrant orange, red, green, cyan up to luminance 165
             const rawEyeColor = document.getElementById('artEyeCoreColor').value || '#00ff66';
-            const safeEyeCoreColor = getSafeContrastColor(rawEyeColor, 50);
+            const safeEyeCoreColor = getSafeContrastColor(rawEyeColor, 165);
 
             const eyeStyle = document.getElementById('artEyeStyle').value || 'squares';
 
@@ -2641,9 +2655,12 @@
             loadedBgImage = new Image();
             loadedBgImage.crossOrigin = 'anonymous';
             loadedBgImage.onload = () => {
-                const domColor = extractDominantColor(loadedBgImage);
-                document.getElementById('artEyeCoreColor').value = domColor;
-                document.getElementById('artDotColor').value = domColor;
+                const palette = extractImagePalette(loadedBgImage);
+                document.getElementById('artEyeCoreColor').value = palette.accent;
+                document.getElementById('artDotColor').value = palette.darkDot;
+                document.getElementById('cornersColor').value = palette.accent;
+                document.getElementById('fgColor1').value = palette.darkDot;
+                document.getElementById('fgColor2').value = palette.accent;
                 updateLiveCustomization();
             };
             loadedBgImage.onerror = () => {
@@ -2668,9 +2685,12 @@
 
                 loadedBgImage = new Image();
                 loadedBgImage.onload = () => {
-                    const domColor = extractDominantColor(loadedBgImage);
-                    document.getElementById('artEyeCoreColor').value = domColor;
-                    document.getElementById('artDotColor').value = '#000000'; // Guaranteed maximum contrast dark modules
+                    const palette = extractImagePalette(loadedBgImage);
+                    document.getElementById('artEyeCoreColor').value = palette.accent;
+                    document.getElementById('artDotColor').value = palette.darkDot;
+                    document.getElementById('cornersColor').value = palette.accent;
+                    document.getElementById('fgColor1').value = palette.darkDot;
+                    document.getElementById('fgColor2').value = palette.accent;
 
                     playTerminalKeyClick();
                     updateLiveCustomization();
@@ -3089,9 +3109,9 @@
 
             const dotScale = Math.min(Math.max(parseFloat(document.getElementById('artDotScale').value) || 0.72, 0.55), 0.90);
             const rawDotColor = document.getElementById('artDotColor').value || '#000000';
-            const safeDarkDotColor = getSafeContrastColor(rawDotColor, 30);
+            const safeDarkDotColor = getSafeContrastColor(rawDotColor, 85);
             const rawEyeColor = document.getElementById('artEyeCoreColor').value || '#00ff66';
-            const safeEyeCoreColor = getSafeContrastColor(rawEyeColor, 50);
+            const safeEyeCoreColor = getSafeContrastColor(rawEyeColor, 165);
             const eyeStyle = document.getElementById('artEyeStyle').value || 'squares';
             const bgOpacity = Math.min(Math.max(parseFloat(document.getElementById('artBgOpacity')?.value) || 0.82, 0.4), 1.0);
 
