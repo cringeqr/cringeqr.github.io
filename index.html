@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <!-- Google Fonts for authentic retro hacker / pixel typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Press+Start+2P&display=swap"
+        rel="stylesheet">
     <!-- QR Code Engines: qrcode-generator for pixel-level canvas halftone/artwork QR & qr-code-styling -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
@@ -39,14 +42,17 @@
             width: 6px;
             height: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: #000;
         }
+
         ::-webkit-scrollbar-thumb {
             background: var(--phosphor-dim);
             border-radius: 1px;
             box-shadow: 0 0 6px var(--phosphor-green);
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: var(--phosphor-green);
         }
@@ -75,7 +81,7 @@
             background: radial-gradient(circle at 50% 50%, #031406 0%, #010803 80%, #000301 100%);
             border: 2px solid var(--phosphor-green);
             border-radius: 8px;
-            box-shadow: 
+            box-shadow:
                 0 0 25px rgba(0, 255, 102, 0.4),
                 inset 0 0 35px rgba(0, 255, 102, 0.12),
                 inset 0 0 90px rgba(0, 0, 0, 0.8);
@@ -89,11 +95,12 @@
         /* Fine Scanline Texture */
         .scanlines {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.3) 50%
-            );
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+                    rgba(0, 0, 0, 0.3) 50%);
             background-size: 100% 3px;
             pointer-events: none;
             z-index: 100;
@@ -103,8 +110,11 @@
         /* CRT Vignette Bloom */
         .crt-flicker {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle, transparent 75%, rgba(0,0,0,0.45) 100%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, transparent 75%, rgba(0, 0, 0, 0.45) 100%);
             pointer-events: none;
             z-index: 101;
             opacity: 0.4;
@@ -116,12 +126,32 @@
         }
 
         @keyframes glitchShake {
-            0% { transform: translate(0, 0) scale(1); filter: hue-rotate(0deg); }
-            20% { transform: translate(-3px, 1px) scale(1.001); filter: drop-shadow(3px 0 0 red); }
-            40% { transform: translate(2px, -1px) scale(0.999); filter: drop-shadow(-3px 0 0 cyan); }
-            60% { transform: translate(-2px, 1px); }
-            80% { transform: translate(1px, -1px); }
-            100% { transform: translate(0, 0); }
+            0% {
+                transform: translate(0, 0) scale(1);
+                filter: hue-rotate(0deg);
+            }
+
+            20% {
+                transform: translate(-3px, 1px) scale(1.001);
+                filter: drop-shadow(3px 0 0 red);
+            }
+
+            40% {
+                transform: translate(2px, -1px) scale(0.999);
+                filter: drop-shadow(-3px 0 0 cyan);
+            }
+
+            60% {
+                transform: translate(-2px, 1px);
+            }
+
+            80% {
+                transform: translate(1px, -1px);
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
         }
 
         /* ================= RETRO INSPO TOP HEADER ================= */
@@ -146,6 +176,7 @@
             vertical-align: middle;
             margin: 0 4px;
         }
+
         .battery-bar {
             width: 4px;
             height: 9px;
@@ -221,13 +252,16 @@
             .terminal-grid {
                 grid-template-columns: 1fr;
             }
-            .left-sidebar, .right-sidebar {
+
+            .left-sidebar,
+            .right-sidebar {
                 display: none !important;
             }
         }
 
         /* Sidebars & Sensor Boxes */
-        .left-sidebar, .right-sidebar {
+        .left-sidebar,
+        .right-sidebar {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -266,11 +300,13 @@
             gap: 5px;
             margin-bottom: 8px;
         }
+
         .sensor-item {
             padding: 3px 6px;
             transition: all 0.2s;
             cursor: pointer;
         }
+
         .sensor-item.active {
             background: var(--phosphor-green);
             color: #000;
@@ -290,9 +326,15 @@
             justify-content: space-between;
             animation: pulseGlow 1.2s infinite alternate;
         }
+
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 4px var(--phosphor-dim); }
-            100% { box-shadow: 0 0 16px var(--phosphor-green); }
+            0% {
+                box-shadow: 0 0 4px var(--phosphor-dim);
+            }
+
+            100% {
+                box-shadow: 0 0 16px var(--phosphor-green);
+            }
         }
 
         .memory-loop-title {
@@ -345,6 +387,7 @@
             line-height: 1.35;
             flex: 1;
         }
+
         .warning-text-content strong {
             color: #fff;
             display: block;
@@ -363,6 +406,7 @@
             float: right;
             margin-top: 4px;
         }
+
         .inspo-ok-btn:hover {
             background: var(--phosphor-green);
             color: #000;
@@ -420,16 +464,21 @@
             border: 2px solid var(--phosphor-green);
             display: flex;
             align-items: center;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            background: #000;
+            border: 1px solid var(--phosphor-dim);
             overflow: hidden;
-            position: relative;
         }
 
-        #miniPreviewContainer canvas, #miniPreviewContainer svg, #miniPreviewContainer img {
+        #miniPreviewContainer img,
+        #miniPreviewContainer canvas,
+        #miniPreviewContainer svg {
             max-width: 155px;
             max-height: 155px;
-            filter: drop-shadow(0 0 8px rgba(0, 255, 102, 0.6));
-            background: #fff;
+            filter: none !important;
+            background: transparent;
             display: block;
         }
 
@@ -519,6 +568,7 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+
         .preset-chip:hover {
             background: var(--phosphor-green);
             color: #000;
@@ -606,6 +656,7 @@
             animation: tabFade 0.2s ease-out;
             flex: 1;
         }
+
         .tab-content.active {
             display: flex;
             flex-direction: column;
@@ -613,8 +664,15 @@
         }
 
         @keyframes tabFade {
-            from { opacity: 0; transform: translateY(2px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(2px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Option Controls */
@@ -656,6 +714,7 @@
             text-shadow: 0 0 4px var(--phosphor-green);
             box-shadow: inset 0 0 6px rgba(0, 255, 102, 0.15), 0 0 4px rgba(0, 255, 102, 0.2);
         }
+
         .theme-preset-btn:hover {
             background: var(--phosphor-green);
             color: #000000;
@@ -680,6 +739,7 @@
             gap: 6px;
             box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
         }
+
         .randomizer-btn:hover {
             background: var(--phosphor-green);
             color: #000;
@@ -770,6 +830,7 @@
             font-family: inherit;
             font-size: 11px;
         }
+
         .custom-file-btn:hover {
             background: var(--phosphor-green);
             color: #000;
@@ -833,6 +894,7 @@
             transition: all 0.2s;
             white-space: nowrap;
         }
+
         .speed-toggle-btn.active {
             border-color: var(--phosphor-green);
             background: rgba(0, 255, 102, 0.15);
@@ -880,13 +942,11 @@
         .progress-bar-fill {
             height: 100%;
             width: 0%;
-            background: repeating-linear-gradient(
-                90deg,
-                var(--phosphor-green) 0px,
-                var(--phosphor-green) 8px,
-                #00441b 8px,
-                #00441b 12px
-            );
+            background: repeating-linear-gradient(90deg,
+                    var(--phosphor-green) 0px,
+                    var(--phosphor-green) 8px,
+                    #00441b 8px,
+                    #00441b 12px);
             box-shadow: 0 0 12px var(--phosphor-green);
             transition: width 0.1s linear;
         }
@@ -922,10 +982,12 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         .log-line.alert {
             color: var(--neon-red);
             font-weight: bold;
         }
+
         .log-line.cyan {
             color: var(--neon-cyan);
         }
@@ -946,8 +1008,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .access-granted-banner {
@@ -967,7 +1036,6 @@
             padding: 14px;
             background: #000;
             border: 2px solid var(--phosphor-green);
-            box-shadow: 0 0 20px rgba(0, 255, 102, 0.35);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -979,24 +1047,37 @@
             height: 14px;
             border: 2px solid #fff;
         }
-        .reticle.tl { top: -3px; left: -3px; border-right: none; border-bottom: none; }
-        .reticle.tr { top: -3px; right: -3px; border-left: none; border-bottom: none; }
-        .reticle.bl { bottom: -3px; left: -3px; border-right: none; border-top: none; }
-        .reticle.br { bottom: -3px; right: -3px; border-left: none; border-top: none; }
 
-        .laser-sweep {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--phosphor-green);
-            box-shadow: 0 0 10px var(--phosphor-green), 0 0 20px var(--phosphor-green);
-            animation: laserScan 2s ease-in-out infinite alternate;
-            pointer-events: none;
+        .reticle.tl {
+            top: -3px;
+            left: -3px;
+            border-right: none;
+            border-bottom: none;
         }
 
-        @keyframes laserScan {
-            0% { top: 4%; }
-            100% { top: 96%; }
+        .reticle.tr {
+            top: -3px;
+            right: -3px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .reticle.bl {
+            bottom: -3px;
+            left: -3px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .reticle.br {
+            bottom: -3px;
+            right: -3px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .laser-sweep {
+            display: none !important;
         }
 
         #qrcodeCanvasContainer {
@@ -1009,10 +1090,12 @@
             min-height: 260px;
         }
 
-        #qrcodeCanvasContainer img, #qrcodeCanvasContainer canvas, #qrcodeCanvasContainer svg {
+        #qrcodeCanvasContainer img,
+        #qrcodeCanvasContainer canvas,
+        #qrcodeCanvasContainer svg {
             display: block;
-            filter: drop-shadow(0 0 6px var(--phosphor-green));
-            background: #fff;
+            filter: none !important;
+            background: transparent;
         }
 
         .target-payload-meta {
@@ -1060,6 +1143,7 @@
             border-color: #fff;
             color: #fff;
         }
+
         .action-btn.reset-btn:hover {
             background: #fff;
             color: #000;
@@ -1079,6 +1163,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- CRT Monitor Shell -->
@@ -1090,14 +1175,18 @@
         <header class="inspo-top-bar">
             <div>
                 <span>FILE: <strong>REALITY_PAYLOAD_01</strong></span>
-                <span style="margin-left:12px;">EMOTIONAL_TRANSMISSION: <strong style="color:#fff;">ACTIVE</strong></span>
+                <span style="margin-left:12px;">EMOTIONAL_TRANSMISSION: <strong
+                        style="color:#fff;">ACTIVE</strong></span>
             </div>
             <div>
                 <span>NODE: <strong>MAINFRAME_CORE</strong></span>
-                <span style="margin-left:12px;">BATTERY: <span class="battery-meter"><span class="battery-bar"></span><span class="battery-bar"></span><span class="battery-bar"></span><span class="battery-bar"></span></span></span>
+                <span style="margin-left:12px;">BATTERY: <span class="battery-meter"><span
+                            class="battery-bar"></span><span class="battery-bar"></span><span
+                            class="battery-bar"></span><span class="battery-bar"></span></span></span>
                 <span style="margin-left:12px;">TIME: <strong id="liveClock">00:00:00</strong></span>
                 <span style="margin-left:12px;">SIGNAL: <strong style="color:#fff;">ACTIVE</strong></span>
-                <button class="inspo-ok-btn" id="audioToggleBtn" onclick="toggleAudio()" style="margin-left:12px; margin-top:0;">[SFX: ON]</button>
+                <button class="inspo-ok-btn" id="audioToggleBtn" onclick="toggleAudio()"
+                    style="margin-left:12px; margin-top:0;">[SFX: ON]</button>
             </div>
         </header>
 
@@ -1178,16 +1267,24 @@
 
                     <div class="terminal-input-wrap">
                         <span class="prompt-symbol">&gt;&gt;</span>
-                        <input type="text" id="targetUrl" placeholder="https://example.com or any target payload" value="https://google.com" autocomplete="off" spellcheck="false" oninput="updateLiveCustomization()">
+                        <input type="text" id="targetUrl" placeholder="https://example.com or any target payload"
+                            value="https://google.com" autocomplete="off" spellcheck="false"
+                            oninput="updateLiveCustomization()">
                     </div>
 
                     <!-- Quick Preset Chips -->
                     <div class="presets-bar">
                         <span>[PRESETS]:</span>
-                        <span class="preset-chip" onclick="setPreset('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">&gt; Rickroll_Payload</span>
-                        <span class="preset-chip" onclick="setPreset('https://matrix.fandom.com/wiki/The_Matrix')">&gt; Matrix_Mainframe</span>
-                        <span class="preset-chip" onclick="setPreset('https://www.cia.gov/readingroom/document/cia-rdp96-00788r001700210016-5')">&gt; CIA_Classified</span>
-                        <span class="preset-chip" onclick="setPreset('https://antigravity.google')">&gt; Google_Antigravity</span>
+                        <span class="preset-chip"
+                            onclick="setPreset('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">&gt;
+                            Rickroll_Payload</span>
+                        <span class="preset-chip" onclick="setPreset('https://matrix.fandom.com/wiki/The_Matrix')">&gt;
+                            Matrix_Mainframe</span>
+                        <span class="preset-chip"
+                            onclick="setPreset('https://www.cia.gov/readingroom/document/cia-rdp96-00788r001700210016-5')">&gt;
+                            CIA_Classified</span>
+                        <span class="preset-chip" onclick="setPreset('https://antigravity.google')">&gt;
+                            Google_Antigravity</span>
                     </div>
 
                     <!-- Toggle Customization Console Button -->
@@ -1212,33 +1309,56 @@
                                 <div class="ctrl-group" style="flex:1;">
                                     <label>Quick Cyber Themes:</label>
                                     <div style="display:flex; flex-wrap:wrap; gap:6px;">
-                                        <button class="theme-preset-btn" onclick="applyTheme('mono')">[STEALTH B&W (DEFAULT)]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('matrix')">[PHOSPHOR GREEN]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('cyberpunk')">[CYBERPUNK NEON]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('redAlert')">[RED ALERT]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('amber')">[AMBER CRT]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('mono')">[STEALTH B&W
+                                            (DEFAULT)]</button>
+                                        <button class="theme-preset-btn"
+                                            onclick="applyTheme('transparent')">[TRANSPARENT]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('matrix')">[PHOSPHOR
+                                            GREEN]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('cyberpunk')">[CYBERPUNK
+                                            NEON]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('redAlert')">[RED
+                                            ALERT]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('amber')">[AMBER
+                                            CRT]</button>
                                         <button class="theme-preset-btn" onclick="applyTheme('ps2')">[PS2 VRAM]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('synthwave')">[SYNTHWAVE 80s]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('toxic')">[TOXIC ACID]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('iceberg')">[ICEBERG BLUE]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('solar')">[SOLAR FLARE]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('ghost')">[GHOST PROTOCOL]</button>
-                                        <button class="theme-preset-btn" onclick="applyTheme('midnight')">[MIDNIGHT VAPOR]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('synthwave')">[SYNTHWAVE
+                                            80s]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('toxic')">[TOXIC
+                                            ACID]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('iceberg')">[ICEBERG
+                                            BLUE]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('solar')">[SOLAR
+                                            FLARE]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('ghost')">[GHOST
+                                            PROTOCOL]</button>
+                                        <button class="theme-preset-btn" onclick="applyTheme('midnight')">[MIDNIGHT
+                                            VAPOR]</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="ctrl-row">
                                 <div class="ctrl-group">
                                     <label>Foreground Color 1:</label>
-                                    <input type="color" id="fgColor1" class="cyber-color-picker" value="#000000" onchange="updateLiveCustomization()">
+                                    <input type="color" id="fgColor1" class="cyber-color-picker" value="#000000"
+                                        onchange="updateLiveCustomization()"
+                                        oninput="updateLiveCustomization()">
                                 </div>
                                 <div class="ctrl-group">
                                     <label>Foreground Color 2 (Gradient):</label>
-                                    <input type="color" id="fgColor2" class="cyber-color-picker" value="#000000" onchange="updateLiveCustomization()">
+                                    <input type="color" id="fgColor2" class="cyber-color-picker" value="#000000"
+                                        onchange="updateLiveCustomization()"
+                                        oninput="updateLiveCustomization()">
                                 </div>
-                                <div class="ctrl-group">
-                                    <label>Background Color:</label>
-                                    <input type="color" id="bgColor" class="cyber-color-picker" value="#ffffff" onchange="updateLiveCustomization()">
+                                <div class="ctrl-group" id="bgColorGroup">
+                                    <label id="bgColorLabel">Background Color:</label>
+                                    <div style="display:flex; align-items:center; gap:6px;">
+                                        <input type="color" id="bgColor" class="cyber-color-picker" value="#ffffff"
+                                            onchange="handleBgColorChange()"
+                                            oninput="handleBgColorChange()">
+                                        <span id="bgTransparentBadge"
+                                            style="display:none; font-size:11px; color:#00f0ff; border:1px solid #00f0ff; padding:4px 8px; font-weight:bold; background:rgba(0,240,255,0.1);">[TRANSPARENT]</span>
+                                    </div>
                                 </div>
                                 <div class="ctrl-group">
                                     <label>Gradient Mode:</label>
@@ -1250,7 +1370,8 @@
                                 </div>
                                 <div class="ctrl-group">
                                     <label>Gradient Rotation:</label>
-                                    <input type="range" id="gradientRotation" class="cyber-slider" min="0" max="360" value="45" oninput="updateLiveCustomization()">
+                                    <input type="range" id="gradientRotation" class="cyber-slider" min="0" max="360"
+                                        value="45" oninput="updateLiveCustomization()">
                                 </div>
                             </div>
                         </div>
@@ -1271,7 +1392,8 @@
                                 </div>
                                 <div class="ctrl-group" style="flex:1;">
                                     <label>Corner Outer Eye Reticle:</label>
-                                    <select id="cornersSquareType" class="cyber-select" onchange="updateLiveCustomization()">
+                                    <select id="cornersSquareType" class="cyber-select"
+                                        onchange="updateLiveCustomization()">
                                         <option value="square" selected>Square Brackets (Default)</option>
                                         <option value="extra-rounded">Rounded Box</option>
                                         <option value="dot">Smooth Circle</option>
@@ -1279,7 +1401,8 @@
                                 </div>
                                 <div class="ctrl-group" style="flex:1;">
                                     <label>Corner Inner Eye Core:</label>
-                                    <select id="cornersDotType" class="cyber-select" onchange="updateLiveCustomization()">
+                                    <select id="cornersDotType" class="cyber-select"
+                                        onchange="updateLiveCustomization()">
                                         <option value="square" selected>Square Core (Default)</option>
                                         <option value="dot">Dot / Circle Core</option>
                                     </select>
@@ -1288,10 +1411,13 @@
                             <div class="ctrl-row">
                                 <div class="ctrl-group">
                                     <label>Corner Eye Accent Color:</label>
-                                    <input type="color" id="cornersColor" class="cyber-color-picker" value="#000000" onchange="updateLiveCustomization()">
+                                    <input type="color" id="cornersColor" class="cyber-color-picker" value="#000000"
+                                        onchange="updateLiveCustomization()"
+                                        oninput="updateLiveCustomization()">
                                 </div>
                                 <div class="safety-note" style="flex:1;">
-                                    [STATUS] All dot and corner patterns adhere to ISO/IEC 18004 QR specifications for 100% camera readability.
+                                    [STATUS] All dot and corner patterns adhere to ISO/IEC 18004 QR specifications for
+                                    100% camera readability.
                                 </div>
                             </div>
                         </div>
@@ -1302,23 +1428,29 @@
                                 <div class="ctrl-group">
                                     <label>Artistic Background Image Mode:</label>
                                     <div style="display:flex; align-items:center; gap:8px;">
-                                        <button class="theme-preset-btn" id="artModeToggleBtn" onclick="toggleArtMode()">[ENABLE BACKGROUND ARTWORK MODE]</button>
+                                        <button class="theme-preset-btn" id="artModeToggleBtn"
+                                            onclick="toggleArtMode()">[ENABLE BACKGROUND ARTWORK MODE]</button>
                                         <span id="artModeStatus" style="font-size:11px; color:#fff;">MODE: OFF</span>
                                     </div>
                                 </div>
                                 <div style="display:flex; align-items:center; gap:8px;">
-                                    <button class="randomizer-btn" onclick="randomizeCyberTheme()" title="Randomize cyber palettes, artwork and dot matrices">
+                                    <button class="randomizer-btn" onclick="randomizeCyberTheme()"
+                                        title="Randomize cyber palettes, artwork and dot matrices">
                                         [🎲 RANDOMIZE CYBER PARAMETERS]
                                     </button>
-                                    <canvas id="radarCanvas" width="48" height="30" title="Quantum Radar Sphere"></canvas>
+                                    <canvas id="radarCanvas" width="48" height="30"
+                                        title="Quantum Radar Sphere"></canvas>
                                 </div>
                             </div>
 
                             <div class="file-upload-wrap">
                                 <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                                     <span>UPLOAD BACKGROUND ARTWORK:</span>
-                                    <input type="file" id="bgArtFile" accept="image/*" style="display:none;" onchange="handleBgArtUpload(event)">
-                                    <button class="custom-file-btn" onclick="document.getElementById('bgArtFile').click()">[BROWSE IMAGE FILE...]</button>
+                                    <input type="file" id="bgArtFile" accept="image/*" style="display:none;"
+                                        onchange="handleBgArtUpload(event)">
+                                    <button class="custom-file-btn"
+                                        onclick="document.getElementById('bgArtFile').click()">[BROWSE IMAGE
+                                        FILE...]</button>
                                     <span id="bgArtFilename" style="color:#fff;"></span>
                                 </div>
                             </div>
@@ -1326,32 +1458,40 @@
                             <div class="ctrl-row" style="margin-top:10px;">
                                 <div class="ctrl-group">
                                     <label>Micro-Dot Strength (Scannability):</label>
-                                    <input type="range" id="artDotScale" class="cyber-slider" min="0.60" max="0.88" step="0.02" value="0.72" oninput="updateLiveCustomization()">
+                                    <input type="range" id="artDotScale" class="cyber-slider" min="0.60" max="0.88"
+                                        step="0.02" value="0.72" oninput="updateLiveCustomization()">
                                 </div>
                                 <div class="ctrl-group">
                                     <label>Corner Eye Ring Style:</label>
                                     <select id="artEyeStyle" class="cyber-select" onchange="updateLiveCustomization()">
-                                        <option value="squares" selected>Classic High-Contrast Squares (Recommended)</option>
+                                        <option value="squares" selected>Classic High-Contrast Squares (Recommended)
+                                        </option>
                                         <option value="rounded">Smooth Rounded Rects</option>
                                         <option value="circles">Circular Rings</option>
                                     </select>
                                 </div>
                                 <div class="ctrl-group">
                                     <label>Background Image Intensity:</label>
-                                    <input type="range" id="artBgOpacity" class="cyber-slider" min="0.50" max="1.0" step="0.05" value="0.82" oninput="updateLiveCustomization()">
+                                    <input type="range" id="artBgOpacity" class="cyber-slider" min="0.50" max="1.0"
+                                        step="0.05" value="0.82" oninput="updateLiveCustomization()">
                                 </div>
                                 <div class="ctrl-group">
                                     <label>Auto-Calibrated Eye Core Accent:</label>
-                                    <input type="color" id="artEyeCoreColor" class="cyber-color-picker" value="#00ff66" onchange="updateLiveCustomization()">
+                                    <input type="color" id="artEyeCoreColor" class="cyber-color-picker" value="#00ff66"
+                                        onchange="updateLiveCustomization()">
                                 </div>
                                 <div class="ctrl-group">
                                     <label>Dark Module Dot Color:</label>
-                                    <input type="color" id="artDotColor" class="cyber-color-picker" value="#000000" onchange="updateLiveCustomization()">
+                                    <input type="color" id="artDotColor" class="cyber-color-picker" value="#000000"
+                                        onchange="updateLiveCustomization()">
                                 </div>
                             </div>
 
                             <div class="safety-note">
-                                [UNBREAKABLE SCANNABILITY SHIELD ACTIVE] All unscannable conditions are automatically prevented: Timing patterns (Row 6 & Col 6) are locked, corner eyes use standard ISO 1:1:3:1:1 bounding geometry, and high-density micro-dots guarantee instant camera detection.
+                                [UNBREAKABLE SCANNABILITY SHIELD ACTIVE] All unscannable conditions are automatically
+                                prevented: Timing patterns (Row 6 & Col 6) are locked, corner eyes use standard ISO
+                                1:1:3:1:1 bounding geometry, and high-density micro-dots guarantee instant camera
+                                detection.
                             </div>
                         </div>
 
@@ -1372,23 +1512,30 @@
 
                             <div class="file-upload-wrap">
                                 <span>OR UPLOAD CENTER LOGO:</span>
-                                <input type="file" id="customLogoFile" accept="image/*" style="display:none;" onchange="handleCustomLogoUpload(event)">
-                                <button class="custom-file-btn" onclick="document.getElementById('customLogoFile').click()">[BROWSE IMAGE FILE...]</button>
+                                <input type="file" id="customLogoFile" accept="image/*" style="display:none;"
+                                    onchange="handleCustomLogoUpload(event)">
+                                <button class="custom-file-btn"
+                                    onclick="document.getElementById('customLogoFile').click()">[BROWSE IMAGE
+                                    FILE...]</button>
                                 <span id="customLogoFilename" style="color:#fff;"></span>
                             </div>
 
                             <div class="ctrl-row" style="margin-top:8px;">
                                 <div class="ctrl-group">
                                     <label>Logo Size Ratio:</label>
-                                    <input type="range" id="logoSize" class="cyber-slider" min="0.15" max="0.32" step="0.01" value="0.25" oninput="updateLiveCustomization()">
+                                    <input type="range" id="logoSize" class="cyber-slider" min="0.15" max="0.32"
+                                        step="0.01" value="0.25" oninput="updateLiveCustomization()">
                                 </div>
                                 <div class="ctrl-group">
                                     <label>Logo Clearance Margin (px):</label>
-                                    <input type="range" id="logoMargin" class="cyber-slider" min="0" max="8" value="3" oninput="updateLiveCustomization()">
+                                    <input type="range" id="logoMargin" class="cyber-slider" min="0" max="8" value="3"
+                                        oninput="updateLiveCustomization()">
                                 </div>
                             </div>
                             <div class="safety-note">
-                                [SAFEGUARD ACTIVE] Embedding a center logo automatically locks Error Correction to Level H (30% redundancy) and clears overlapping modules to ensure flawless scanning on any device.
+                                [SAFEGUARD ACTIVE] Embedding a center logo automatically locks Error Correction to Level
+                                H (30% redundancy) and clears overlapping modules to ensure flawless scanning on any
+                                device.
                             </div>
                         </div>
 
@@ -1399,18 +1546,19 @@
                                     <label>Error Correction Level (ECL):</label>
                                     <select id="eclLevel" class="cyber-select" onchange="updateLiveCustomization()">
                                         <option value="L">Level L (7% Data Recovery - Highest Density)</option>
-                                        <option value="M" selected>Level M (15% Data Recovery - Standard Default)</option>
+                                        <option value="M" selected>Level M (15% Data Recovery - Standard Default)
+                                        </option>
                                         <option value="Q">Level Q (25% Data Recovery - High Resilience)</option>
                                         <option value="H">Level H (30% Data Recovery - Maximum Safety)</option>
                                     </select>
                                 </div>
                                 <div class="ctrl-group" style="flex:1;">
-                                    <label>Quiet Zone Margin:</label>
+                                    <label>Quiet Zone Margin (ISO Isolation):</label>
                                     <select id="marginSelect" class="cyber-select" onchange="updateLiveCustomization()">
-                                        <option value="0">0 Modules (Zero Padding)</option>
-                                        <option value="1">1 Module</option>
-                                        <option value="2" selected>2 Modules (Standard Default)</option>
-                                        <option value="4">4 Modules (Max Isolation)</option>
+                                        <option value="0.065" selected>Standard Quiet Zone (Recommended - 100%
+                                            Scannable)</option>
+                                        <option value="0.10">Wide Isolation Margin (High Visibility)</option>
+                                        <option value="0.045">Compact Safe Margin</option>
                                     </select>
                                 </div>
                                 <div class="ctrl-group" style="flex:1;">
@@ -1430,7 +1578,8 @@
                         <button class="hack-btn" id="hackBtn" onclick="initiateHackingSequence()">
                             [EXECUTE] INJECT CYBER-PAYLOAD (GENERATE QR)
                         </button>
-                        <button class="speed-toggle-btn" id="speedBtn" onclick="toggleSpeed()" title="Switch between Authentic 7s hacker suspense or 2s fast bypass">
+                        <button class="speed-toggle-btn" id="speedBtn" onclick="toggleSpeed()"
+                            title="Switch between Authentic 7s hacker suspense or 2s fast bypass">
                             SPEED: AUTHENTIC (7s)
                         </button>
                     </div>
@@ -1532,7 +1681,10 @@
                     <div>Host: mainframe.server</div>
                     <div>User-Agent: phantom.hacker</div>
                     <div style="color:#fff; font-weight:bold; margin-top:2px;">RESPONSE: 200 OK (Connection Established)</div>
-                    <img src="inspo/download (2).jfif" alt="Hacker Surveillance" onerror="this.src='inspo/download.jfif'">
+                    <div style="margin-top:6px; padding:6px; background:rgba(0,255,102,0.06); border:1px solid var(--phosphor-dim); font-size:9.5px; color:var(--phosphor-bright); line-height:1.4;">
+                        <div>[STREAM: 0x7FFF // PORT 8080 // ACTIVE]</div>
+                        <div style="color:var(--neon-cyan);">>> PACKET SYNCHRONIZED: 2D_QR_PAYLOAD</div>
+                    </div>
                 </div>
             </aside>
 
@@ -1596,7 +1748,7 @@
 
                 osc.start(now);
                 osc.stop(now + 0.015);
-            } catch (e) {}
+            } catch (e) { }
         }
 
         function playHackerRadarPulse() {
@@ -1625,7 +1777,7 @@
 
                 osc.start(now);
                 osc.stop(now + 0.2);
-            } catch(e) {}
+            } catch (e) { }
         }
 
         function playGlitchNoise() {
@@ -1656,7 +1808,7 @@
                 gain.connect(ctx.destination);
 
                 noise.start(now);
-            } catch(e) {}
+            } catch (e) { }
         }
 
         function playAccessGrantedTone() {
@@ -1683,7 +1835,7 @@
                     osc.start(startTime);
                     osc.stop(startTime + 0.25);
                 });
-            } catch(e) {}
+            } catch (e) { }
         }
 
 
@@ -1772,12 +1924,12 @@
 
         const vertices = [
             [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
-            [-1, -1, 1],  [1, -1, 1],  [1, 1, 1],  [-1, 1, 1]
+            [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]
         ];
         const edges = [
-            [0,1],[1,2],[2,3],[3,0],
-            [4,5],[5,6],[6,7],[7,4],
-            [0,4],[1,5],[2,6],[3,7]
+            [0, 1], [1, 2], [2, 3], [3, 0],
+            [4, 5], [5, 6], [6, 7], [7, 4],
+            [0, 4], [1, 5], [2, 6], [3, 7]
         ];
 
         function renderWireframe() {
@@ -1909,8 +2061,20 @@
         /* ----------------------------------------------------
            5. CONTRAST-HARDENED DOMINANT COLOR EXTRACTOR & SAFEGUARD
            ---------------------------------------------------- */
-        function getLuminance(r, g, b) {
-            return (0.2126 * r + 0.7152 * g + 0.0722 * b);
+        function getLuminance(rOrHex, g, b) {
+            if (typeof rOrHex === 'string') {
+                if (!rOrHex || rOrHex === 'transparent') return 0;
+                let hex = rOrHex.replace('#', '');
+                if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+                const rVal = parseInt(hex.substring(0, 2), 16) || 0;
+                const gVal = parseInt(hex.substring(2, 4), 16) || 0;
+                const bVal = parseInt(hex.substring(4, 6), 16) || 0;
+                return (0.299 * rVal) + (0.587 * gVal) + (0.114 * bVal);
+            }
+            const rVal = rOrHex || 0;
+            const gVal = g || 0;
+            const bVal = b || 0;
+            return (0.299 * rVal) + (0.587 * gVal) + (0.114 * bVal);
         }
 
         // Guarantees any user or extracted color is strictly dark enough for 100% QR scannability
@@ -1945,7 +2109,7 @@
                 let dominantHex = '#005522';
 
                 for (let i = 0; i < data.length; i += 4) {
-                    const r = data[i], g = data[i+1], b = data[i+2], a = data[i+3];
+                    const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
                     if (a < 80) continue;
 
                     const max = Math.max(r, g, b);
@@ -1966,7 +2130,7 @@
                     colorCounts[key] = (colorCounts[key] || 0) + 1;
                     if (colorCounts[key] > maxCount) {
                         maxCount = colorCounts[key];
-                        dominantHex = '#' + ((1 << 24) + (Math.min(qr,255) << 16) + (Math.min(qg,255) << 8) + Math.min(qb,255)).toString(16).slice(1);
+                        dominantHex = '#' + ((1 << 24) + (Math.min(qr, 255) << 16) + (Math.min(qg, 255) << 8) + Math.min(qb, 255)).toString(16).slice(1);
                     }
                 }
                 return getSafeContrastColor(dominantHex, 55);
@@ -2047,7 +2211,8 @@
             qr.make();
 
             const moduleCount = qr.getModuleCount();
-            const marginModules = Math.max(parseInt(document.getElementById('marginSelect').value, 10), 2);
+            const marginRatio = parseFloat(document.getElementById('marginSelect')?.value) || 0.065;
+            const marginModules = Math.max(Math.round(moduleCount * marginRatio), 2);
             const totalModules = moduleCount + (marginModules * 2);
             const cellSize = targetWidth / totalModules;
             const marginPx = marginModules * cellSize;
@@ -2090,7 +2255,7 @@
             }
 
             const dotScale = Math.min(Math.max(parseFloat(document.getElementById('artDotScale').value) || 0.72, 0.55), 0.90);
-            
+
             // SECURITY CLAMP: Ensure dark dots are strictly pitch dark (luminance <= 30)
             const rawDotColor = document.getElementById('artDotColor').value || '#000000';
             const safeDarkDotColor = getSafeContrastColor(rawDotColor, 30);
@@ -2311,26 +2476,48 @@
 
 
         /* ----------------------------------------------------
-           7. DYNAMIC QR CODE STYLING ENGINE
+           7. DYNAMIC QR CODE STYLING ENGINE & ANTI-BLEND EYE GUARD
            ---------------------------------------------------- */
         let miniQRInstance = null;
         let finalQRInstance = null;
+        let isTransparentTheme = false;
+
+        function getSafeEyeColor(eyeColor, bgColor, fallbackColor) {
+            if (!eyeColor) return fallbackColor;
+            if (bgColor === 'transparent') {
+                return eyeColor;
+            }
+
+            const lumEye = getLuminance(eyeColor);
+            const lumBg = getLuminance(bgColor);
+            const contrastDelta = Math.abs(lumEye - lumBg);
+
+            // Only disallow when the eye truly blends directly into the background (e.g. white-on-white, black-on-black)
+            if (contrastDelta < 35) {
+                // If background is light, prevent disappearance by flipping to dark
+                // If background is dark, prevent disappearance by flipping to light
+                return (lumBg >= 128) ? '#000000' : '#ffffff';
+            }
+            return eyeColor;
+        }
 
         function getQRCodeOptions(targetWidth = 260) {
             const text = document.getElementById('targetUrl').value.trim() || 'https://google.com';
             const fgColor1 = document.getElementById('fgColor1').value;
             const fgColor2 = document.getElementById('fgColor2').value;
-            const bgColor = document.getElementById('bgColor').value;
+            const bgColor = isTransparentTheme ? 'transparent' : document.getElementById('bgColor').value;
             const gradientType = document.getElementById('gradientType').value;
             const gradientRotation = parseFloat(document.getElementById('gradientRotation').value) * (Math.PI / 180);
 
             const dotsType = document.getElementById('dotsType').value;
             const cornersSquareType = document.getElementById('cornersSquareType').value;
             const cornersDotType = document.getElementById('cornersDotType').value;
-            const cornersColor = document.getElementById('cornersColor').value;
+            const rawCornersColor = document.getElementById('cornersColor')?.value || fgColor1;
+            const safeCornersColor = getSafeEyeColor(rawCornersColor, bgColor, fgColor1);
 
             let ecl = document.getElementById('eclLevel').value;
-            const margin = parseInt(document.getElementById('marginSelect').value, 10);
+            const marginRatio = parseFloat(document.getElementById('marginSelect').value) || 0.065;
+            const margin = Math.max(Math.round(targetWidth * marginRatio), 8);
             const logoSize = parseFloat(document.getElementById('logoSize').value);
             const logoMargin = parseInt(document.getElementById('logoMargin').value, 10);
 
@@ -2380,11 +2567,11 @@
                 },
                 cornersSquareOptions: {
                     type: cornersSquareType,
-                    color: cornersColor || fgColor1
+                    color: safeCornersColor
                 },
                 cornersDotOptions: {
                     type: cornersDotType,
-                    color: cornersColor || fgColor1
+                    color: safeCornersColor
                 }
             };
         }
@@ -2459,6 +2646,10 @@
                 document.getElementById('artDotColor').value = domColor;
                 updateLiveCustomization();
             };
+            loadedBgImage.onerror = () => {
+                document.getElementById('bgArtFilename').innerText = `[PROMPT: PLEASE UPLOAD CUSTOM IMAGE]`;
+                updateLiveCustomization();
+            };
             loadedBgImage.src = path;
         }
 
@@ -2467,7 +2658,7 @@
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 artModeEnabled = true;
                 document.getElementById('artModeToggleBtn').innerText = '[DISABLE BACKGROUND ARTWORK MODE]';
                 const status = document.getElementById('artModeStatus');
@@ -2516,6 +2707,17 @@
         /* ----------------------------------------------------
            10. PRESET THEMES & BADGES CONTROLLER
            ---------------------------------------------------- */
+        function handleBgColorChange() {
+            isTransparentTheme = false;
+            const bgInput = document.getElementById('bgColor');
+            const bgBadge = document.getElementById('bgTransparentBadge');
+            const bgLabel = document.getElementById('bgColorLabel');
+            if (bgInput) bgInput.style.display = 'inline-block';
+            if (bgBadge) bgBadge.style.display = 'none';
+            if (bgLabel) bgLabel.innerText = 'Background Color:';
+            updateLiveCustomization();
+        }
+
         function applyTheme(theme) {
             playTerminalKeyClick();
             artModeEnabled = false;
@@ -2532,12 +2734,39 @@
             const cornersSquareType = document.getElementById('cornersSquareType');
             const cornersDotType = document.getElementById('cornersDotType');
 
+            isTransparentTheme = (theme === 'transparent' || theme === 'transparentWhite');
+
+            const bgInput = document.getElementById('bgColor');
+            const bgBadge = document.getElementById('bgTransparentBadge');
+            const bgLabel = document.getElementById('bgColorLabel');
+
+            if (isTransparentTheme) {
+                if (bgInput) bgInput.style.display = 'none';
+                if (bgBadge) bgBadge.style.display = 'inline-block';
+                if (bgLabel) bgLabel.innerText = 'Background:';
+            } else {
+                if (bgInput) bgInput.style.display = 'inline-block';
+                if (bgBadge) bgBadge.style.display = 'none';
+                if (bgLabel) bgLabel.innerText = 'Background Color:';
+            }
+
             if (theme === 'mono') {
                 fg1.value = '#000000';
                 fg2.value = '#000000';
                 bg.value = '#ffffff';
                 grad.value = 'none';
                 cornersColor.value = '#000000';
+                dotsType.value = 'square';
+                cornersSquareType.value = 'square';
+                cornersDotType.value = 'square';
+            } else if (theme === 'transparent' || theme === 'transparentWhite') {
+                // If foreground was black, default to pure white for visibility on transparent
+                if (fg1.value === '#000000') {
+                    fg1.value = '#ffffff';
+                    fg2.value = '#ffffff';
+                    cornersColor.value = '#ffffff';
+                }
+                grad.value = 'none';
                 dotsType.value = 'square';
                 cornersSquareType.value = 'square';
                 cornersDotType.value = 'square';
@@ -2661,7 +2890,7 @@
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 customUploadedLogo = e.target.result;
                 document.getElementById('customLogoFilename').innerText = `[LOADED] ${file.name}`;
                 document.querySelectorAll('.badge-opt').forEach(el => el.classList.remove('active'));
@@ -2852,7 +3081,8 @@
             qr.make();
 
             const moduleCount = qr.getModuleCount();
-            const marginModules = Math.max(parseInt(document.getElementById('marginSelect').value, 10), 2);
+            const marginRatio = parseFloat(document.getElementById('marginSelect')?.value) || 0.065;
+            const marginModules = Math.max(Math.round(moduleCount * marginRatio), 2);
             const totalModules = moduleCount + (marginModules * 2);
             const cellSize = targetWidth / totalModules;
             const marginPx = marginModules * cellSize;
@@ -3038,11 +3268,12 @@
             document.getElementById('inputDeck').style.display = 'flex';
         }
 
-        document.getElementById('targetUrl').addEventListener('keydown', function(e) {
+        document.getElementById('targetUrl').addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
                 initiateHackingSequence();
             }
         });
     </script>
 </body>
+
 </html>
