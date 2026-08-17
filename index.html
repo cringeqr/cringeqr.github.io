@@ -595,6 +595,10 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: inset 0 0 8px rgba(0, 255, 102, 0.2);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+            z-index: 20;
         }
 
         .customizer-toggle-btn:hover {
@@ -613,6 +617,10 @@
             flex-direction: column;
             justify-content: space-between;
             box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.1);
+        }
+
+        .customizer-panel.collapsed {
+            display: none !important;
         }
 
         .customizer-tabs {
@@ -1292,11 +1300,23 @@
                 padding-right: 0;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
+                flex: 1;
+                min-height: 0;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
             }
 
             .command-deck {
                 padding: 10px 10px;
-                gap: 6px;
+                gap: 8px;
+                flex: none !important;
+                height: auto !important;
+                min-height: min-content !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
             }
 
             .deck-title-bar {
@@ -1351,18 +1371,45 @@
             /* Customizer Toggle Button */
             .customizer-toggle-btn {
                 font-size: 8px;
-                padding: 8px 10px;
+                padding: 9px 10px;
                 margin-bottom: 6px;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+                position: relative;
+                z-index: 20;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 8px;
+                line-height: 1.35;
+                text-align: left;
+            }
+
+            .customizer-toggle-btn span:first-child {
+                flex: 1;
+                text-align: left;
+            }
+
+            .customizer-toggle-btn span#customizerToggleIcon {
+                flex-shrink: 0;
+                font-size: 10px;
+                font-weight: bold;
+                color: var(--phosphor-bright);
             }
 
             /* Customizer Panel */
             .customizer-panel {
-                display: block !important;
+                display: block;
                 padding: 8px 10px;
                 margin-bottom: 6px;
-                max-height: 48vh;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                flex: none !important;
+            }
+
+            .customizer-panel.collapsed {
+                display: none !important;
             }
 
             .customizer-tabs {
@@ -1429,38 +1476,42 @@
                 display: flex !important;
                 align-items: center;
                 justify-content: flex-start;
-                background: #000;
-                border: 1px solid var(--phosphor-dim);
-                padding: 4px 8px;
-                margin-bottom: 8px;
-                gap: 8px;
+                background: rgba(0, 15, 5, 0.95);
+                border: 1.5px solid var(--phosphor-green);
+                padding: 8px 10px;
+                margin-bottom: 10px;
+                gap: 12px;
                 flex-shrink: 0 !important;
+                box-shadow: 0 0 10px rgba(0, 255, 102, 0.15);
             }
 
             .mobile-live-preview-box {
-                width: 48px;
-                height: 48px;
+                width: 96px;
+                height: 96px;
                 background: #000;
-                border: 1px solid var(--phosphor-green);
+                border: 1.5px solid var(--phosphor-bright);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 overflow: hidden;
                 flex-shrink: 0;
+                box-shadow: 0 0 8px rgba(0, 255, 102, 0.25);
             }
 
             .mobile-live-preview-box img,
             .mobile-live-preview-box canvas,
             .mobile-live-preview-box svg {
-                max-width: 44px;
-                max-height: 44px;
+                max-width: 92px;
+                max-height: 92px;
+                width: 92px;
+                height: 92px;
                 display: block;
                 filter: none !important;
             }
 
             .mobile-live-preview-info {
-                font-size: 9px;
-                line-height: 1.3;
+                font-size: 10px;
+                line-height: 1.4;
                 flex: 1;
                 color: var(--phosphor-bright);
             }
@@ -1772,7 +1823,7 @@
 
                     <!-- Toggle Customization Console Button -->
                     <button class="customizer-toggle-btn" id="customizerToggleBtn" onclick="toggleCustomizer()">
-                        <span>[+] QUANTUM CIPHER MODULATION (CUSTOMIZE QR CODE)</span>
+                        <span>QUANTUM CIPHER MODULATION (CUSTOMIZE QR CODE)</span>
                         <span id="customizerToggleIcon">[-]</span>
                     </button>
 
@@ -3121,9 +3172,9 @@
                         mobileCanvas = document.createElement('canvas');
                         mobileMiniContainer.appendChild(mobileCanvas);
                     }
-                    renderArtisticQRCanvas(mobileCanvas, 44, text);
+                    renderArtisticQRCanvas(mobileCanvas, 92, text);
                 } else {
-                    const options = getQRCodeOptions(44);
+                    const options = getQRCodeOptions(92);
                     if (!mobileMiniQRInstance || (mobileMiniContainer.querySelector('canvas') && !mobileMiniContainer.querySelector('svg'))) {
                         mobileMiniContainer.innerHTML = '';
                         mobileMiniQRInstance = new QRCodeStyling(options);
@@ -3135,16 +3186,25 @@
             }
         }
 
-        window.addEventListener('load', () => {
-            // Auto-collapse customizer on small mobile screens initially so the full functional deck fits on screen
-            if (window.innerWidth <= 768) {
-                const panel = document.getElementById('customizerPanel');
-                const icon = document.getElementById('customizerToggleIcon');
-                if (panel && icon) {
-                    panel.style.display = 'none';
-                    icon.innerText = '[+]';
-                }
+        function initMobileLayout() {
+            // Keep customizer undocked/open by default on mobile page load
+            const panel = document.getElementById('customizerPanel');
+            const icon = document.getElementById('customizerToggleIcon');
+            if (panel && icon) {
+                panel.classList.remove('collapsed');
+                panel.style.display = (window.innerWidth <= 768) ? 'block' : 'flex';
+                icon.innerText = '[-]';
             }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMobileLayout);
+        } else {
+            initMobileLayout();
+        }
+
+        window.addEventListener('load', () => {
+            initMobileLayout();
             setTimeout(updateLiveCustomization, 300);
         });
 
@@ -3423,14 +3483,17 @@
             updateLiveCustomization();
         }
 
-        function selectPresetBadge(badgeKey) {
+        function selectPresetBadge(badgeKey, el) {
             playTerminalKeyClick();
             selectedBadge = badgeKey;
             customUploadedLogo = null;
             document.getElementById('customLogoFilename').innerText = '';
 
-            document.querySelectorAll('.badge-opt').forEach(el => el.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            document.querySelectorAll('.badge-opt').forEach(b => b.classList.remove('active'));
+            const targetBadge = el || (typeof event !== 'undefined' && event ? event.currentTarget : null);
+            if (targetBadge) {
+                targetBadge.classList.add('active');
+            }
 
             updateLiveCustomization();
         }
@@ -3453,19 +3516,42 @@
         function toggleCustomizer() {
             const panel = document.getElementById('customizerPanel');
             const icon = document.getElementById('customizerToggleIcon');
-            const isHidden = panel.style.display === 'none';
-            panel.style.display = isHidden ? 'flex' : 'none';
-            icon.innerText = isHidden ? '[-]' : '[+]';
-            playTerminalKeyClick();
+            if (!panel) return;
+
+            const isCurrentlyHidden = panel.classList.contains('collapsed') || panel.style.display === 'none' || getComputedStyle(panel).display === 'none';
+
+            if (isCurrentlyHidden) {
+                panel.classList.remove('collapsed');
+                panel.style.display = (window.innerWidth <= 768) ? 'block' : 'flex';
+                if (icon) icon.innerText = '[-]';
+            } else {
+                panel.classList.add('collapsed');
+                panel.style.display = 'none';
+                if (icon) icon.innerText = '[+]';
+            }
+
+            try {
+                playTerminalKeyClick();
+            } catch (e) { }
+
+            if (isCurrentlyHidden) {
+                updateLiveCustomization();
+            }
         }
 
-        function switchTab(tabId) {
+        function switchTab(tabId, el) {
             playTerminalKeyClick();
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
 
-            event.currentTarget.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+            const targetBtn = el || (typeof event !== 'undefined' && event ? event.currentTarget : null) || document.querySelector(`[onclick*="${tabId}"]`);
+            if (targetBtn) {
+                targetBtn.classList.add('active');
+            }
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
         }
 
         function setPreset(url) {
