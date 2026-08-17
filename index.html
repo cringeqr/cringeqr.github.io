@@ -2121,8 +2121,8 @@
                         <button class="action-btn" onclick="downloadQRCode('svg')">
                             EXPORT VECTOR (.SVG)
                         </button>
-                        <button class="action-btn" onclick="copyLink()">
-                            COPY MATRIX LINK
+                        <button class="action-btn" onclick="copyQRCodeImage()">
+                            COPY MATRIX IMAGE
                         </button>
                         <button class="action-btn reset-btn" onclick="resetToTerminal()">
                             HACK ANOTHER TARGET
@@ -3818,14 +3818,69 @@
             }, 2200);
         }
 
-        function copyLink() {
-            const target = document.getElementById('targetUrl').value;
-            navigator.clipboard.writeText(target).then(() => {
-                playTerminalKeyClick();
-                showCyberToast("[+] PAYLOAD LINK COPIED TO MATRIX CLIPBOARD");
-            }).catch(() => {
-                showCyberToast("[+] TARGET: " + target);
-            });
+        async function copyQRCodeImage() {
+            playTerminalKeyClick();
+            const qrContainer = document.getElementById('qrcodeCanvasContainer');
+            const text = document.getElementById('targetUrl').value.trim() || 'https://google.com';
+            const res = parseInt(document.getElementById('exportResolution')?.value, 10) || 1024;
+
+            try {
+                let blob = null;
+
+                if (artModeEnabled) {
+                    const exportCanvas = document.createElement('canvas');
+                    renderArtisticQRCanvas(exportCanvas, res, text);
+                    blob = await new Promise(resolve => exportCanvas.toBlob(resolve, 'image/png'));
+                } else if (finalQRInstance && typeof finalQRInstance.getRawData === 'function') {
+                    try {
+                        blob = await finalQRInstance.getRawData('png');
+                    } catch (e) {
+                        blob = null;
+                    }
+                }
+
+                // Fallback: search for canvas in container
+                if (!blob && qrContainer) {
+                    const canvas = qrContainer.querySelector('canvas');
+                    if (canvas) {
+                        blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                    }
+                }
+
+                // Fallback: search for img in container
+                if (!blob && qrContainer) {
+                    const img = qrContainer.querySelector('img');
+                    if (img && img.complete) {
+                        const c = document.createElement('canvas');
+                        c.width = img.naturalWidth || 512;
+                        c.height = img.naturalHeight || 512;
+                        const ctx = c.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        blob = await new Promise(resolve => c.toBlob(resolve, 'image/png'));
+                    }
+                }
+
+                if (blob && navigator.clipboard && window.ClipboardItem) {
+                    const item = new ClipboardItem({ 'image/png': blob });
+                    await navigator.clipboard.write([item]);
+                    showCyberToast("[+] QR MATRIX IMAGE COPIED TO CLIPBOARD");
+                } else if (blob) {
+                    const target = document.getElementById('targetUrl').value;
+                    await navigator.clipboard.writeText(target);
+                    showCyberToast("[+] CLIPBOARD IMAGE UNSUPPORTED - URL COPIED");
+                } else {
+                    showCyberToast("[!] NO IMAGE DATA AVAILABLE TO COPY");
+                }
+            } catch (err) {
+                console.error("Error copying QR image to clipboard:", err);
+                try {
+                    const target = document.getElementById('targetUrl').value;
+                    await navigator.clipboard.writeText(target);
+                    showCyberToast("[+] IMAGE BLOCKED - PAYLOAD URL COPIED INSTEAD");
+                } catch (e) {
+                    showCyberToast("[!] FAILED TO COPY TO CLIPBOARD");
+                }
+            }
         }
 
         function resetToTerminal() {
