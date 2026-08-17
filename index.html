@@ -861,6 +861,8 @@
             color: #fff;
             font-family: 'Press Start 2P', monospace;
             font-size: 12.5px;
+            line-height: 1.5;
+            text-align: center;
             padding: 16px 20px;
             cursor: pointer;
             text-shadow: 0 0 8px var(--phosphor-green);
@@ -1161,6 +1163,487 @@
             justify-content: space-between;
             align-items: center;
         }
+
+        /* ================= CYBER TOAST NOTIFICATION ================= */
+        #cyberToast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0, 20, 5, 0.96);
+            border: 1.5px solid var(--phosphor-green);
+            color: var(--phosphor-bright);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11.5px;
+            padding: 8px 16px;
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.7), inset 0 0 10px rgba(0, 255, 102, 0.2);
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        #cyberToast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Mobile Live Preview Box defaults (hidden on desktop) */
+        .mobile-live-preview-card {
+            display: none !important;
+        }
+
+        /* ================= MOBILE & RESPONSIVE ADAPTATIONS ================= */
+        @media (max-width: 900px) {
+            .terminal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .left-sidebar,
+            .right-sidebar {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                height: 100dvh;
+                height: -webkit-fill-available;
+                width: 100vw;
+                overflow: hidden;
+                padding: 0;
+            }
+
+            .crt-monitor {
+                width: 100vw;
+                max-width: 100vw;
+                height: 100dvh;
+                max-height: 100dvh;
+                margin: 0;
+                padding: 6px 8px 4px 8px;
+                border-radius: 0;
+                border-width: 1.5px;
+                box-shadow: inset 0 0 15px rgba(0, 255, 102, 0.1), inset 0 0 40px rgba(0, 0, 0, 0.9);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            /* 1. Compact Top Bar */
+            .inspo-top-bar {
+                padding: 4px 8px;
+                font-size: 10px;
+                margin-bottom: 4px;
+                letter-spacing: 0.8px;
+                gap: 4px;
+                align-items: center;
+            }
+
+            .inspo-top-bar .desktop-stat {
+                display: none !important;
+            }
+
+            .battery-meter {
+                gap: 1px;
+                padding: 1px 2px;
+                margin: 0 2px;
+            }
+
+            .battery-bar {
+                width: 3px;
+                height: 7px;
+            }
+
+            .inspo-ok-btn {
+                font-size: 9.5px;
+                padding: 2px 6px;
+            }
+
+            /* 2. Sleek Compact Hero Banner */
+            .inspo-hero-banner {
+                padding: 4px 6px;
+                margin-bottom: 6px;
+            }
+
+            .inspo-hero-banner h1 {
+                font-size: 9px;
+                letter-spacing: 0.8px;
+                margin-bottom: 1px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .inspo-hero-banner h2 {
+                font-size: 16px;
+                letter-spacing: 1.2px;
+                line-height: 1.15;
+            }
+
+            .inspo-sub-log {
+                display: none !important;
+            }
+
+            /* 3. Center Workspace */
+            .center-workspace {
+                gap: 6px;
+                padding-right: 0;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .command-deck {
+                padding: 10px 10px;
+                gap: 6px;
+            }
+
+            .deck-title-bar {
+                font-size: 10px;
+                padding-bottom: 4px;
+                margin-bottom: 6px;
+            }
+
+            .terminal-input-wrap {
+                padding: 7px 10px;
+                margin-bottom: 6px;
+            }
+
+            .terminal-input-wrap span.prompt-symbol {
+                font-size: 15px;
+                margin-right: 6px;
+            }
+
+            input#targetUrl {
+                font-size: 13.5px;
+            }
+
+            /* Swipeable Preset Chips */
+            .presets-bar {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 5px;
+                margin-bottom: 6px;
+                padding: 1px 0 3px 0;
+            }
+
+            .presets-bar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .presets-bar span:first-child {
+                font-size: 9.5px;
+                align-self: center;
+                flex-shrink: 0;
+            }
+
+            .preset-chip {
+                flex-shrink: 0;
+                font-size: 10px;
+                padding: 4px 8px;
+                white-space: nowrap;
+            }
+
+            /* Customizer Toggle Button */
+            .customizer-toggle-btn {
+                font-size: 8px;
+                padding: 8px 10px;
+                margin-bottom: 6px;
+            }
+
+            /* Customizer Panel */
+            .customizer-panel {
+                display: block !important;
+                padding: 8px 10px;
+                margin-bottom: 6px;
+                max-height: 48vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .customizer-tabs {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                -webkit-overflow-scrolling: touch;
+                gap: 5px !important;
+                padding: 0 0 6px 0 !important;
+                margin-bottom: 8px !important;
+                border-bottom: 1px solid var(--phosphor-dim) !important;
+                width: 100% !important;
+                flex-shrink: 0 !important;
+                min-height: 38px !important;
+            }
+
+            .customizer-tabs::-webkit-scrollbar {
+                height: 3px;
+            }
+
+            .customizer-tabs::-webkit-scrollbar-thumb {
+                background: var(--phosphor-green);
+            }
+
+            .tab-btn {
+                flex: 0 0 auto !important;
+                white-space: nowrap !important;
+                font-size: 11px !important;
+                font-family: 'Share Tech Mono', monospace !important;
+                padding: 6px 10px !important;
+                min-height: 32px !important;
+                height: auto !important;
+                line-height: 1.2 !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                border: 1px solid var(--phosphor-dim) !important;
+                color: var(--phosphor-bright) !important;
+                background: rgba(0, 20, 5, 0.6) !important;
+                box-sizing: border-box !important;
+            }
+
+            .tab-btn.active {
+                background: var(--phosphor-green) !important;
+                color: #000000 !important;
+                border-color: var(--phosphor-green) !important;
+                font-weight: bold !important;
+                box-shadow: 0 0 10px var(--phosphor-green) !important;
+                text-shadow: none !important;
+            }
+
+            .tab-content {
+                display: none;
+            }
+
+            .tab-content.active {
+                display: block !important;
+            }
+
+            /* Mobile Live Preview Box inside Customizer */
+            .mobile-live-preview-card {
+                display: flex !important;
+                align-items: center;
+                justify-content: flex-start;
+                background: #000;
+                border: 1px solid var(--phosphor-dim);
+                padding: 4px 8px;
+                margin-bottom: 8px;
+                gap: 8px;
+                flex-shrink: 0 !important;
+            }
+
+            .mobile-live-preview-box {
+                width: 48px;
+                height: 48px;
+                background: #000;
+                border: 1px solid var(--phosphor-green);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                flex-shrink: 0;
+            }
+
+            .mobile-live-preview-box img,
+            .mobile-live-preview-box canvas,
+            .mobile-live-preview-box svg {
+                max-width: 44px;
+                max-height: 44px;
+                display: block;
+                filter: none !important;
+            }
+
+            .mobile-live-preview-info {
+                font-size: 9px;
+                line-height: 1.3;
+                flex: 1;
+                color: var(--phosphor-bright);
+            }
+
+            /* Tab Controls */
+            .ctrl-row {
+                gap: 8px;
+                margin-bottom: 6px;
+            }
+
+            .ctrl-group {
+                font-size: 10px;
+                gap: 2px;
+            }
+
+            .ctrl-group label {
+                font-size: 8.5px;
+            }
+
+            .theme-preset-btn {
+                font-size: 9.5px;
+                padding: 5px 7px;
+                justify-content: center;
+            }
+
+            .theme-grid-mobile {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 5px !important;
+                width: 100%;
+            }
+
+            .randomizer-btn {
+                font-size: 10px;
+                padding: 6px 10px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            select.cyber-select {
+                font-size: 10px;
+                padding: 5px 6px;
+            }
+
+            input[type="color"].cyber-color-picker {
+                width: 36px;
+                height: 28px;
+            }
+
+            .badge-grid {
+                gap: 4px;
+            }
+
+            .badge-opt {
+                font-size: 9.5px;
+                padding: 4px 7px;
+            }
+
+            /* Execute & Speed Buttons */
+            .btn-row {
+                display: flex !important;
+                gap: 6px;
+                margin-top: 4px;
+                align-items: stretch;
+            }
+
+            .hack-btn {
+                font-family: 'Press Start 2P', monospace !important;
+                font-size: 9.5px !important;
+                line-height: 1.6 !important;
+                padding: 10px 8px !important;
+                letter-spacing: 0.5px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                word-break: normal !important;
+                white-space: normal !important;
+                min-height: 52px !important;
+                height: auto !important;
+                box-sizing: border-box !important;
+            }
+
+            .speed-toggle-btn {
+                font-size: 8.5px !important;
+                padding: 10px 8px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                min-height: 52px !important;
+                height: auto !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Hacking Overlay */
+            #hackingOverlay {
+                padding: 12px;
+                gap: 8px;
+            }
+
+            .hack-phase-title {
+                font-size: 9px;
+            }
+
+            .progress-container {
+                height: 20px;
+            }
+
+            .progress-text {
+                font-size: 8.5px;
+            }
+
+            .terminal-stream-box {
+                height: 120px;
+                font-size: 14px;
+                padding: 6px;
+            }
+
+            /* Result View */
+            #resultView {
+                padding: 10px 8px;
+                gap: 8px;
+            }
+
+            .access-granted-banner {
+                font-size: 10px;
+                padding: 5px 12px;
+                letter-spacing: 1px;
+            }
+
+            .qr-cyber-frame {
+                padding: 8px;
+            }
+
+            #qrcodeCanvasContainer {
+                min-width: 170px;
+                min-height: 170px;
+                max-width: min(60vw, 210px);
+                max-height: min(60vw, 210px);
+                padding: 4px;
+            }
+
+            #qrcodeCanvasContainer img,
+            #qrcodeCanvasContainer canvas,
+            #qrcodeCanvasContainer svg {
+                max-width: 100% !important;
+                max-height: 100% !important;
+                width: auto !important;
+                height: auto !important;
+            }
+
+            .target-payload-meta {
+                font-size: 9.5px;
+                padding-top: 4px;
+            }
+
+            .action-btn-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+                width: 100%;
+            }
+
+            .action-btn {
+                font-size: 9.5px;
+                padding: 9px 5px;
+                text-align: center;
+                justify-content: center;
+                min-height: 40px;
+            }
+
+            /* Footer */
+            footer.hud-footer {
+                font-size: 8.5px;
+                margin-top: 3px;
+                padding-top: 2px;
+            }
+
+            footer.hud-footer .desktop-stat {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -1175,18 +1658,18 @@
         <header class="inspo-top-bar">
             <div>
                 <span>FILE: <strong>REALITY_PAYLOAD_01</strong></span>
-                <span style="margin-left:12px;">EMOTIONAL_TRANSMISSION: <strong
+                <span class="desktop-stat" style="margin-left:12px;">EMOTIONAL_TRANSMISSION: <strong
                         style="color:#fff;">ACTIVE</strong></span>
             </div>
             <div>
-                <span>NODE: <strong>MAINFRAME_CORE</strong></span>
-                <span style="margin-left:12px;">BATTERY: <span class="battery-meter"><span
+                <span class="desktop-stat">NODE: <strong>MAINFRAME_CORE</strong></span>
+                <span class="desktop-stat" style="margin-left:12px;">BATTERY: <span class="battery-meter"><span
                             class="battery-bar"></span><span class="battery-bar"></span><span
                             class="battery-bar"></span><span class="battery-bar"></span></span></span>
-                <span style="margin-left:12px;">TIME: <strong id="liveClock">00:00:00</strong></span>
-                <span style="margin-left:12px;">SIGNAL: <strong style="color:#fff;">ACTIVE</strong></span>
+                <span style="margin-left:8px;">TIME: <strong id="liveClock">00:00:00</strong></span>
+                <span class="desktop-stat" style="margin-left:12px;">SIGNAL: <strong style="color:#fff;">ACTIVE</strong></span>
                 <button class="inspo-ok-btn" id="audioToggleBtn" onclick="toggleAudio()"
-                    style="margin-left:12px; margin-top:0;">[SFX: ON]</button>
+                    style="margin-left:8px; margin-top:0;">[SFX: ON]</button>
             </div>
         </header>
 
@@ -1295,12 +1778,22 @@
 
                     <!-- CUSTOMIZATION CONSOLE TABS -->
                     <div class="customizer-panel" id="customizerPanel">
+                        <!-- Mobile Live Hologram Preview Bar (Visible only on mobile) -->
+                        <div class="mobile-live-preview-card">
+                            <div class="mobile-live-preview-box" id="mobileMiniPreviewContainer"></div>
+                            <div class="mobile-live-preview-info">
+                                <div style="font-weight:bold; color:#fff; margin-bottom:2px;">[LIVE CIPHER PREVIEW]</div>
+                                <div>AUTO-SYNC: <strong>ACTIVE</strong></div>
+                                <div style="color:var(--phosphor-bright);">SCANNABILITY: <strong>100%</strong></div>
+                            </div>
+                        </div>
+
                         <div class="customizer-tabs">
                             <button class="tab-btn active" onclick="switchTab('paletteTab')">[1] PALETTES</button>
                             <button class="tab-btn" onclick="switchTab('patternsTab')">[2] NANODOTS</button>
-                            <button class="tab-btn" onclick="switchTab('artTab')">[3] BACKGROUND ARTWORK</button>
+                            <button class="tab-btn" onclick="switchTab('artTab')">[3] ARTWORK</button>
                             <button class="tab-btn" onclick="switchTab('badgesTab')">[4] LOGOS</button>
-                            <button class="tab-btn" onclick="switchTab('safetyTab')">[5] SAFETY & EXPORT</button>
+                            <button class="tab-btn" onclick="switchTab('safetyTab')">[5] EXPORT</button>
                         </div>
 
                         <!-- TAB 1: PALETTE & GRADIENTS -->
@@ -1308,7 +1801,7 @@
                             <div class="ctrl-row">
                                 <div class="ctrl-group" style="flex:1;">
                                     <label>Quick Cyber Themes:</label>
-                                    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                                    <div class="theme-grid-mobile" style="display:flex; flex-wrap:wrap; gap:6px;">
                                         <button class="theme-preset-btn" onclick="applyTheme('mono')">[STEALTH B&W
                                             (DEFAULT)]</button>
                                         <button class="theme-preset-btn"
@@ -1693,8 +2186,8 @@
         <!-- Bottom HUD Footer -->
         <footer class="hud-footer">
             <div>PS2_VRAM: 64MB // BIOS_REV: 2.30 // PROTOCOL: TCP/IP_OVERRIDE</div>
-            <div>[STATUS: ALL FIREWALLS COMPROMISED // SCANNABLE 100%]</div>
-            <div>BUILD: 2004.11.17 // HOLLYWOOD_CUSTOM_EDITION</div>
+            <div class="desktop-stat">[STATUS: ALL FIREWALLS COMPROMISED // SCANNABLE 100%]</div>
+            <div class="desktop-stat">BUILD: 2004.11.17 // HOLLYWOOD_CUSTOM_EDITION</div>
         </footer>
     </div>
 
@@ -2590,31 +3083,68 @@
             };
         }
 
+        let mobileMiniQRInstance = null;
+
         function updateLiveCustomization() {
             const miniContainer = document.getElementById('miniPreviewContainer');
+            const mobileMiniContainer = document.getElementById('mobileMiniPreviewContainer');
             const text = document.getElementById('targetUrl').value.trim() || 'https://google.com';
 
-            if (artModeEnabled) {
-                let miniCanvas = miniContainer.querySelector('canvas');
-                if (!miniCanvas) {
-                    miniContainer.innerHTML = '';
-                    miniCanvas = document.createElement('canvas');
-                    miniContainer.appendChild(miniCanvas);
-                }
-                renderArtisticQRCanvas(miniCanvas, 155, text);
-            } else {
-                const options = getQRCodeOptions(155);
-                if (!miniQRInstance || miniContainer.querySelector('canvas') && !miniContainer.querySelector('svg')) {
-                    miniContainer.innerHTML = '';
-                    miniQRInstance = new QRCodeStyling(options);
-                    miniQRInstance.append(miniContainer);
+            // 1. Desktop Mini Hologram Preview
+            if (miniContainer) {
+                if (artModeEnabled) {
+                    let miniCanvas = miniContainer.querySelector('canvas');
+                    if (!miniCanvas) {
+                        miniContainer.innerHTML = '';
+                        miniCanvas = document.createElement('canvas');
+                        miniContainer.appendChild(miniCanvas);
+                    }
+                    renderArtisticQRCanvas(miniCanvas, 155, text);
                 } else {
-                    miniQRInstance.update(options);
+                    const options = getQRCodeOptions(155);
+                    if (!miniQRInstance || (miniContainer.querySelector('canvas') && !miniContainer.querySelector('svg'))) {
+                        miniContainer.innerHTML = '';
+                        miniQRInstance = new QRCodeStyling(options);
+                        miniQRInstance.append(miniContainer);
+                    } else {
+                        miniQRInstance.update(options);
+                    }
+                }
+            }
+
+            // 2. Mobile Live Hologram Preview (Card inside Customizer)
+            if (mobileMiniContainer) {
+                if (artModeEnabled) {
+                    let mobileCanvas = mobileMiniContainer.querySelector('canvas');
+                    if (!mobileCanvas) {
+                        mobileMiniContainer.innerHTML = '';
+                        mobileCanvas = document.createElement('canvas');
+                        mobileMiniContainer.appendChild(mobileCanvas);
+                    }
+                    renderArtisticQRCanvas(mobileCanvas, 44, text);
+                } else {
+                    const options = getQRCodeOptions(44);
+                    if (!mobileMiniQRInstance || (mobileMiniContainer.querySelector('canvas') && !mobileMiniContainer.querySelector('svg'))) {
+                        mobileMiniContainer.innerHTML = '';
+                        mobileMiniQRInstance = new QRCodeStyling(options);
+                        mobileMiniQRInstance.append(mobileMiniContainer);
+                    } else {
+                        mobileMiniQRInstance.update(options);
+                    }
                 }
             }
         }
 
         window.addEventListener('load', () => {
+            // Auto-collapse customizer on small mobile screens initially so the full functional deck fits on screen
+            if (window.innerWidth <= 768) {
+                const panel = document.getElementById('customizerPanel');
+                const icon = document.getElementById('customizerToggleIcon');
+                if (panel && icon) {
+                    panel.style.display = 'none';
+                    icon.innerText = '[+]';
+                }
+            }
             setTimeout(updateLiveCustomization, 300);
         });
 
@@ -3274,11 +3804,27 @@
             }
         }
 
+        function showCyberToast(msg) {
+            let toast = document.getElementById('cyberToast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'cyberToast';
+                document.body.appendChild(toast);
+            }
+            toast.innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2200);
+        }
+
         function copyLink() {
             const target = document.getElementById('targetUrl').value;
             navigator.clipboard.writeText(target).then(() => {
                 playTerminalKeyClick();
-                alert("[STATUS] PAYLOAD LINK COPIED TO MATRIX CLIPBOARD: " + target);
+                showCyberToast("[+] PAYLOAD LINK COPIED TO MATRIX CLIPBOARD");
+            }).catch(() => {
+                showCyberToast("[+] TARGET: " + target);
             });
         }
 
